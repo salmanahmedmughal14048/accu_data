@@ -1,0 +1,90 @@
+[33mcommit 7fabc88fddb2d743c2dcd91c03b45e4d59ec4647[m[33m ([m[1;36mHEAD -> [m[1;32mmodel_view_ortho_v2[m[33m, [m[1;31morigin/model_view_ortho_v2[m[33m)[m
+Author: Nachiket Patil <nacpatil@latticerobot.com>
+Date:   Fri May 9 15:51:38 2025 -0400
+
+    re organised
+
+[33mcommit 601eb1633f2e39cdeac438d55e89959bae3bd329[m
+Author: Nachiket Patil <nacpatil@latticerobot.com>
+Date:   Fri May 9 15:25:46 2025 -0400
+
+    fixed accidental clicks issues
+
+[33mcommit 5cfa14cf052ea6a96ec804a5c32aee67930ccf9a[m[33m ([m[1;31morigin/model_view_ortho[m[33m, [m[1;32mmodel_view_ortho[m[33m)[m
+Author: Nachiket Patil <nacpatil@latticerobot.com>
+Date:   Fri May 9 11:52:19 2025 -0400
+
+    vortho set
+
+[33mcommit ecebd25fb6da3e8cd726c435e707463d09f84cbd[m[33m ([m[1;31morigin/feature/3d-rendering[m[33m, [m[1;32mfeature/3d-rendering[m[33m)[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Fri May 9 19:54:43 2025 +0530
+
+    Replace scene with self made + added navigation for view
+
+[33mcommit b16b74345f4fdf83e3e47c31ae0e46c9927a7adf[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Thu May 8 22:50:33 2025 +0530
+
+    Updated cube view + cintainer to latest
+
+[33mcommit 219425697a4e8f1e53f45a588b652255ff73c0d0[m
+Merge: 6e3e599 4e45387
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Thu May 8 21:27:06 2025 +0530
+
+    Merge branch 'feature/3d-rendering' of github.com:nacpatil/reactVerts into feature/3d-rendering
+
+[33mcommit 6e3e59934d2ec3e8985c5ca08529f9fe33c1e826[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Thu May 8 21:26:12 2025 +0530
+
+    Updated babel + react scripts version
+
+[33mcommit 4e4538734d9df37d73c829ae61967cb65708b558[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Nachiket Patil <nacpatil@latticerobot.com>
+Date:   Tue May 6 14:58:54 2025 -0400
+
+    changed material
+
+[33mcommit 2f3d2f7a9b282d97e04e8e4bbc066d777c9413de[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Tue May 6 23:44:13 2025 +0530
+
+    Fixed zoom issue
+
+[33mcommit 092f60d47d00f9e03af7273a62e9bfa9bfe9dd2c[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Tue May 6 18:55:11 2025 +0530
+
+    Added orbit control fixes
+
+[33mcommit 802a732ff045642d41a3bd26831f0c9638d86568[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Tue May 6 18:36:01 2025 +0530
+
+    Added shift key for orbit
+
+[33mcommit aaa09baf495782c98d4b96e56670bfa7e448e569[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Tue May 6 00:00:39 2025 +0530
+
+    Fixed selection + orbit control
+
+[33mcommit 6733c44255b5d3a83d1e49b9fa017be3fa8cc2eb[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Mon May 5 22:34:04 2025 +0530
+
+    Pushing missing fies
+
+[33mcommit a4022b4cc4cb9efa1b470593bfa5a7914bf29786[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Mon May 5 20:41:13 2025 +0530
+
+    Added cube view
+
+[33mcommit 6314e4548ce40e8e582d6406ec6fb8d949299c10[m
+Author: Yash Joshi <yashjs1995@gmail.com>
+Date:   Sun May 4 23:33:54 2025 +0530
+
+    Added model viewer

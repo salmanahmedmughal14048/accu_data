@@ -1,0 +1,233 @@
+/* CloudAccountForm Styles */
+
+/* Container */
+.cloud-account-container {
+  flex: 1;
+  background-color: #eaeaea;
+  padding: 40px;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Typography */
+.cloud-account-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.section-label {
+  display: block;
+  font-size: 18px;
+  color: #4a5568;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.account-label {
+  font-size: 18px;
+  color: #2d3748;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  flex: 1;
+}
+
+/* Form Layout */
+.cloud-account-form {
+  flex: 1;
+  padding-bottom: 80px;
+}
+
+.form-section {
+  margin-bottom: 35px;
+  padding: 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  transition: background-color 0.3s;
+  background-color: transparent;
+}
+
+.form-section.hovered {
+  background-color: rgba(251, 247, 247, 1);
+}
+
+/* Account Options */
+.account-options {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 20px;
+  gap: 1px;
+}
+
+.account-option {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  cursor: pointer;
+  gap: 1px;
+}
+
+.account-radio {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Inputs */
+.other-input {
+  width: 250px;
+  padding: 8px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #2d3748;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ip-input-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ip-input {
+  width: 300px;
+  padding: 10px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #2d3748;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ip-input:focus,
+.other-input:focus {
+  outline: none;
+  border-color: #0099ff;
+}
+
+/* Buttons */
+.connect-button {
+  min-width: 80px;
+  text-align: center;
+  font-size: 14px;
+  background-color: #d7d7d7;
+  color: #000000;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: none;
+  margin-left: auto;
+}
+
+.connect-button:hover:not(.connected) {
+  background-color: #008fe0;
+  color: #ffffff;
+}
+
+.connect-button.connected {
+  background-color: #01a101;
+  color: #ffffff;
+}
+
+.next-button {
+  cursor: pointer;
+  display: block;
+}
+
+/* Divider */
+.form-divider {
+  margin: 30px 0;
+  font-size: 18px;
+  color: #4a5568;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Navigation */
+.button-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 20px;
+  flex-direction: row;
+}
+
+.button-wrapper.mobile {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cloud-account-container {
+    padding: 20px;
+  }
+  
+  .cloud-account-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .section-label {
+    font-size: 16px;
+  }
+  
+  .account-label {
+    font-size: 16px;
+  }
+  
+  .other-input {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .ip-input {
+    width: 100%;
+  }
+  
+  .ip-input-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  
+  .connect-button {
+    margin-left: 0;
+    align-self: flex-start;
+  }
+  
+  .account-option {
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .cloud-account-container {
+    padding: 15px;
+  }
+  
+  .section-label,
+  .account-label {
+    font-size: 14px;
+  }
+  
+  .form-section {
+    padding: 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}

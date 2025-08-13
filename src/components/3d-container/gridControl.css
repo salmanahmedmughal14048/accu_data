@@ -1,0 +1,59 @@
+.grid-control-wrapper {
+  position: absolute;
+  right: 0;
+  z-index: 3;
+  width: 100%;
+  top: 10%
+}
+
+.mesh-title {
+  font-size: 14px;
+  color: #141414;
+  font-weight: 600;
+  white-space: nowrap;
+  font-family: "open sans", Helvetica, Arial, sans-serif;
+  position: absolute;
+  left: 0;
+  z-index: 3;
+  top: 5px;
+  width: 100%;
+}
+
+.select-mesh-dropdown-container{
+  position: absolute;
+  left: 0;
+  /* bottom: 3%; */
+  /* border: 1px solid #8c8c8c; */
+  /* border-radius: 8px; */
+  z-index: 3;
+}
+
+
+.select-mesh-dropdown.ant-select-focused .ant-select-selector {
+  border-color: #ccc !important;
+  box-shadow: none !important;
+}
+
+.select-mesh-dropdown .ant-select-selector{
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.select-mesh-dropdown{
+  border: 2px solid #8c8c8c !important;
+  border-radius: 8px !important;
+}
+
+  
+  @media (min-width: 768px) {
+    .grid-control-wrapper {
+      width: 30%;
+    }
+  }
+
+  @media (min-width: 450px) {
+    .grid-control-wrapper {
+      top: 0;
+    }
+  }
+  

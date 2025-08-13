@@ -1,0 +1,202 @@
+/* SurfViewComponent Styles */
+.surf-view-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #000000;
+}
+
+.parts-menu-wrapper {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    width: 160px !important;
+    padding: 10px 20px 0 0 !important;
+}
+
+.grid-control-wrapper {
+    position: absolute !important;
+    top: 20px !important;
+    right: 165px !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+}
+
+.grid-control-wrapper > * {
+    pointer-events: auto !important;
+}
+
+.three-js-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* Additional UI Component Styles */
+.camera-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.camera-button {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+}
+
+.camera-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 18px;
+    z-index: 1001;
+}
+
+.mesh-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 1000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .parts-menu-wrapper {
+        width: 140px !important;
+        padding: 10px 10px 0 0 !important;
+    }
+    
+    .grid-control-wrapper {
+        right: 145px !important;
+        top: 10px !important;
+    }
+    
+    .camera-controls {
+        top: 10px;
+        left: 10px;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .camera-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .mesh-info {
+        bottom: 10px;
+        left: 10px;
+        font-size: 10px;
+        padding: 5px;
+    }
+}
+
+/* Dark theme variables */
+:root {
+    --surface-bg: #000000;
+    --ui-overlay: rgba(255, 255, 255, 0.1);
+    --ui-border: rgba(255, 255, 255, 0.2);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+/* Loading animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.surf-view-container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Focus and accessibility */
+.camera-button:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.camera-button:active {
+    transform: translateY(1px);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .camera-button {
+        border-color: white;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .mesh-info {
+        background: rgba(0, 0, 0, 0.8);
+        border: 1px solid white;
+    }
+}
+
+
+/* Add this to your SurfViewComponent.css */
+
+.color-scale-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 240px; /* Position it to the left of the legend */
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.color-scale-toggle-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.color-scale-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Responsive positioning */
+@media (max-width: 768px) {
+  .color-scale-toggle-btn {
+    right: 20px;
+    bottom: 80px; /* Move above legend on mobile */
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}
