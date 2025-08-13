@@ -4,7 +4,7 @@ import emailIcon from '../../assets/questions/submit/email-icon.svg';
 import submitButton from '../../assets/questions/submit/submit-button.svg';
 import submitButtonHover from '../../assets/questions/submit/submit-button-hover.svg';
 
-const Submit = ({ onPrev, formData = {} }) => {
+const Submit = ({ onPrev, onComplete, formData = {} }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
@@ -15,8 +15,9 @@ const Submit = ({ onPrev, formData = {} }) => {
     setTimeout(() => {
       setIsSubmitted(true);
       setIsSubmitting(false);
-      // Here you would normally send the data to your backend
-      console.log('Submitting configuration:', formData);
+      if (onComplete) {
+        onComplete(formData);
+      }
     }, 2000);
   };
 

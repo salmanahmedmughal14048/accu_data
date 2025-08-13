@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -24,25 +24,27 @@ const ACULoad = () => {
 
     // Debug the state
     useEffect(() => {
-        console.log(`[${PAGE_PREFIX}] Component mounted`);
-        console.log(`[${PAGE_PREFIX}] Active tab key:`, activeTabKey);
-        console.log(`[${PAGE_PREFIX}] Default tab:`, DEFAULT_TAB);
+        // Component mounted - no debugging needed
     }, [activeTabKey]);
 
     // Handle questioner completion and redirect
     const handleQuestionerComplete = (formData) => {
-        console.log(`[${PAGE_PREFIX}] Questioner completed with data:`, formData);
+        // Extract data from both questionnaires
+        const { medicalData, hardwareData, completedAt } = formData;
         
-        // Optionally store the form data in Redux if needed
-        // dispatch(someAction(formData));
-        
+        // Store the combined data in localStorage for persistence
+        localStorage.setItem('acu_complete_assessment', JSON.stringify(formData));
         // Redirect to load-files page
         history.push('/load-files');
     };
 
     // Handle questioner close (if user cancels)
-    const handleQuestionerClose = () => {
-        console.log(`[${PAGE_PREFIX}] Questioner closed`);
+    const handleQuestionerClose = (partialData) => {
+        if (partialData && (partialData.medicalData || partialData.hardwareData)) {
+            // Save partial progress
+            localStorage.setItem('acu_partial_assessment', JSON.stringify(partialData));
+        }
+        
         // Optionally redirect somewhere else or stay on current page
         // history.push('/dashboard'); // Or wherever you want to go on cancel
     };
@@ -60,7 +62,6 @@ const ACULoad = () => {
     ];
 
     const handleTabChange = (key) => {
-        console.log(`[${PAGE_PREFIX}] Tab changed to:`, key);
         // Dispatch with prefix and tab key
         dispatch(setActiveTabKey({ 
             prefix: PAGE_PREFIX, 
@@ -71,7 +72,7 @@ const ACULoad = () => {
     const items = [
         {
             key: '1',
-            label: 'Questionnaire',
+            label: 'Assessment',
             children: (
                 <div style={{ flex: 'none' }}>
                     <Questioner 
@@ -93,7 +94,7 @@ const ACULoad = () => {
             showScores={false}
             metrics={metrics}
             pagePrefix={PAGE_PREFIX}
-            defaultActiveKey={DEFAULT_TAB}  // ACULoad defaults to Questionnaire tab
+            defaultActiveKey={DEFAULT_TAB}  // ACULoad defaults to Assessment tab
         />
     );
 };

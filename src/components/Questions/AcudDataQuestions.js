@@ -21,6 +21,7 @@ function AcudDataQuestions({
 
   useEffect(() => {
     const savedData = localStorage.getItem(storageKey);
+    
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
@@ -29,8 +30,8 @@ function AcudDataQuestions({
           setCurrentStep(1);
         }
       } catch (error) {
-        console.error('Error parsing saved questioner data:', error);
       }
+    } else {
     }
   }, [storageKey]);
 
