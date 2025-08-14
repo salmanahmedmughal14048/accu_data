@@ -1,6 +1,9 @@
 
 import React, { useState } from 'react';
 import { styles } from './sharedStyles';
+import sensorSmall from '../../assets/questions/images/sensor-small.png';
+import sensorMedium from '../../assets/questions/images/sensor-medium.png';
+import sensorLarge from '../../assets/questions/images/sensor-large.png';
 
 const SensorHeadConfiguration = ({ onNext, onPrev, initialData = {} }) => {
   const [formData, setFormData] = useState({
@@ -41,6 +44,7 @@ const SensorHeadConfiguration = ({ onNext, onPrev, initialData = {} }) => {
                 style={styles.radioInput}
               />
               <label htmlFor="sensorSize-small" style={styles.radioLabel}>Small Sensor</label>
+              <img src={sensorSmall} alt="Small sensor" style={styles.sensorImage} />
             </div>
             <div style={styles.radioOption}>
               <input
@@ -53,6 +57,7 @@ const SensorHeadConfiguration = ({ onNext, onPrev, initialData = {} }) => {
                 style={styles.radioInput}
               />
               <label htmlFor="sensorSize-medium" style={styles.radioLabel}>Medium Sensor</label>
+              <img src={sensorMedium} alt="Small sensor" style={styles.sensorImage} />
             </div>
             <div style={styles.radioOption}>
               <input
@@ -65,6 +70,7 @@ const SensorHeadConfiguration = ({ onNext, onPrev, initialData = {} }) => {
                 style={styles.radioInput}
               />
               <label htmlFor="sensorSize-large" style={styles.radioLabel}>Large Sensor</label>
+              <img src={sensorLarge} alt="Small sensor" style={styles.sensorImage} />
             </div>
           </div>
         </div>

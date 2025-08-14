@@ -73,7 +73,7 @@ const ConfigurableForm = ({
     },
     form: {
       flex: 1,
-      paddingBottom: '80px'
+      // paddingBottom: '80px'
     },
     formGroup: {
       marginBottom: '25px',

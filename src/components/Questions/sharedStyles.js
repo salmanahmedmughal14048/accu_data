@@ -26,7 +26,7 @@ export const styles = {
   },
   form: {
     flex: 1,
-    paddingBottom: '80px'
+    // paddingBottom: '80px'
   },
   formGroup: {
     marginBottom: '25px',
@@ -144,5 +144,10 @@ export const styles = {
   mobileImageGrid: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     gap: '10px'
-  }
+  },
+  sensorImage: {
+    width: '120px',
+    height: 'auto',
+    objectFit: 'contain'
+  },
 };

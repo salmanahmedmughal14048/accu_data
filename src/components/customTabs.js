@@ -32,7 +32,7 @@ const CustomTab = ({
                 .custom-tab-container {
                     display: flex;
                     flex-direction: column;
-                    height: 100vh;
+                    
                 }
 
                 .tab-header {
@@ -113,7 +113,7 @@ const CustomTab = ({
 
                 .tab-content {
                     flex: 1;
-                    overflow: auto;
+                    
                     background-color: #000000;
                     padding: 0;
                 }
