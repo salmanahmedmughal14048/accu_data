@@ -72,7 +72,7 @@ const ConfigurableForm = ({
       fontStyle: 'italic'
     },
     form: {
-      flex: 1,
+      // flex: 1,
       // paddingBottom: '80px'
     },
     formGroup: {

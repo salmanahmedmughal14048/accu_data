@@ -25,8 +25,6 @@ export const styles = {
     fontStyle: 'italic'
   },
   form: {
-    flex: 1,
-    // paddingBottom: '80px'
   },
   formGroup: {
     marginBottom: '25px',
