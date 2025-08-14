@@ -210,7 +210,7 @@ const SensorHeadConfiguration = ({ onNext, onPrev, initialData = {} }) => {
           type="button" 
           onClick={handleNext} 
           className="questioner-nav-button next"
-          disabled={!formData.sensorSize || !formData.moreThanOne || !formData.sameWand}
+          // disabled={!formData.sensorSize || !formData.moreThanOne || !formData.sameWand}
         >
         </button>
       </div>

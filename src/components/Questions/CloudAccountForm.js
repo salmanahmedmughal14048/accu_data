@@ -174,10 +174,10 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = f
           </button>
         )}
         <button 
-          type="button" 
+          // type="button" 
           onClick={handleSubmit} 
           className="questioner-nav-button next"
-          disabled={!formState.selectedAccount || (formState.selectedAccount === 'other' && !formState.otherValue)}
+          // disabled={!formState.selectedAccount || (formState.selectedAccount === 'other' && !formState.otherValue)}
           style={!showPrevButton ? { marginLeft: 'auto' } : {}}
         >
         </button>

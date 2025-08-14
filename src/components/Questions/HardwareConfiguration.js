@@ -223,7 +223,7 @@ const HardwareConfiguration = ({ onNext, onPrev, initialData = {} }) => {
           type="button" 
           onClick={handleNext} 
           className="questioner-nav-button next"
-          disabled={!formData.displayMonitor || !formData.dataDevice || !formData.pointingDevice}
+          // disabled={!formData.displayMonitor || !formData.dataDevice || !formData.pointingDevice}
         >
         </button>
       </div>
