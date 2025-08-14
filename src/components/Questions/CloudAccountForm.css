@@ -45,10 +45,10 @@
 }
 
 .form-section {
-  margin-bottom: 35px;
-  padding: 20px;
-  margin-left: -20px;
-  margin-right: -20px;
+  margin-bottom: 25px;
+  padding: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
   transition: background-color 0.3s;
   background-color: transparent;
 }
@@ -61,21 +61,30 @@
 .account-options {
   display: flex;
   flex-direction: column;
-  padding: 4px 20px;
-  gap: 1px;
+  padding: 0;
+  gap: 12px;
 }
 
 .account-option {
   display: flex;
   align-items: center;
-  padding: 6px 0;
+  padding: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
   cursor: pointer;
-  gap: 1px;
+  gap: 8px;
+  transition: background-color 0.3s;
+  background-color: transparent;
+  min-height: 44px;
+}
+
+.account-option:hover {
+  background-color: rgba(251, 247, 247, 1);
 }
 
 .account-radio {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -94,7 +103,7 @@
 .ip-input-container {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
 .ip-input {
@@ -146,7 +155,7 @@
 
 /* Divider */
 .form-divider {
-  margin: 30px 0;
+  margin: 20px 0;
   font-size: 15px;
   color: #4a5568;
   font-family: 'Montserrat', sans-serif;

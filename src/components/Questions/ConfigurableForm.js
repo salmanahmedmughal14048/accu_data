@@ -205,55 +205,61 @@ const ConfigurableForm = ({
       case 'radio':
         return (
           <div style={styles.radioGroup}>
-            {question.options.map(option => (
-              <div key={option.value} style={styles.radioOption}>
-                <input
-                  type="radio"
-                  id={`${question.id}-${option.value}`}
-                  name={question.id}
-                  value={option.value}
-                  checked={formData[question.id] === option.value}
-                  onChange={(e) => handleChange(question.id, e.target.value)}
-                  style={styles.radioInput}
-                />
-                <label 
-                  htmlFor={`${question.id}-${option.value}`} 
-                  style={styles.radioLabel}
-                >
-                  {option.label}
-                </label>
-              </div>
-            ))}
+            {question.options.map(option => {
+              const optionValue = option.value || option.id;
+              return (
+                <div key={optionValue} style={styles.radioOption}>
+                  <input
+                    type="radio"
+                    id={`${question.id}-${optionValue}`}
+                    name={question.id}
+                    value={optionValue}
+                    checked={formData[question.id] === optionValue}
+                    onChange={(e) => handleChange(question.id, e.target.value)}
+                    style={styles.radioInput}
+                  />
+                  <label 
+                    htmlFor={`${question.id}-${optionValue}`} 
+                    style={styles.radioLabel}
+                  >
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
           </div>
         );
 
       case 'checkbox':
         return (
           <div style={styles.checkboxGroup}>
-            {question.options.map(option => (
-              <div key={option.value} style={styles.checkboxOption}>
-                <input
-                  type="checkbox"
-                  id={`${question.id}-${option.value}`}
-                  value={option.value}
-                  checked={formData[question.id]?.includes(option.value) || false}
-                  onChange={(e) => {
-                    const currentValues = formData[question.id] || [];
-                    const newValues = e.target.checked
-                      ? [...currentValues, option.value]
-                      : currentValues.filter(v => v !== option.value);
-                    handleChange(question.id, newValues);
-                  }}
-                  style={styles.checkboxInput}
-                />
-                <label 
-                  htmlFor={`${question.id}-${option.value}`} 
-                  style={styles.radioLabel}
-                >
-                  {option.label}
-                </label>
-              </div>
-            ))}
+            {question.options.map(option => {
+              const optionValue = option.value || option.id;
+              return (
+                <div key={optionValue} style={styles.checkboxOption}>
+                  <input
+                    type="checkbox"
+                    id={`${question.id}-${optionValue}`}
+                    value={optionValue}
+                    checked={formData[question.id]?.includes(optionValue) || false}
+                    onChange={(e) => {
+                      const currentValues = formData[question.id] || [];
+                      const newValues = e.target.checked
+                        ? [...currentValues, optionValue]
+                        : currentValues.filter(v => v !== optionValue);
+                      handleChange(question.id, newValues);
+                    }}
+                    style={styles.checkboxInput}
+                  />
+                  <label 
+                    htmlFor={`${question.id}-${optionValue}`} 
+                    style={styles.radioLabel}
+                  >
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
           </div>
         );
 
@@ -276,11 +282,14 @@ const ConfigurableForm = ({
             style={styles.selectInput}
           >
             <option value="">Select an option</option>
-            {question.options.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
+            {question.options.map(option => {
+              const optionValue = option.value || option.id;
+              return (
+                <option key={optionValue} value={optionValue}>
+                  {option.label}
+                </option>
+              );
+            })}
           </select>
         );
 
@@ -292,33 +301,36 @@ const ConfigurableForm = ({
       case 'image-grid':
         return (
           <div style={{...styles.imageGrid, ...(isMobile ? styles.mobileImageGrid : {})}}>
-            {question.options.map(option => (
-              <div
-                key={option.value}
-                style={{
-                  ...styles.imageOption,
-                  ...(formData[question.id] === option.value ? styles.imageOptionSelected : {})
-                }}
-                onClick={() => handleChange(question.id, option.value)}
-              >
-                {option.image && (
-                  <img 
-                    src={option.image} 
-                    alt={option.label} 
-                    style={styles.optionImage}
+            {question.options.map(option => {
+              const optionValue = option.value || option.id;
+              return (
+                <div
+                  key={optionValue}
+                  style={{
+                    ...styles.imageOption,
+                    ...(formData[question.id] === optionValue ? styles.imageOptionSelected : {})
+                  }}
+                  onClick={() => handleChange(question.id, optionValue)}
+                >
+                  {option.image && (
+                    <img 
+                      src={option.image} 
+                      alt={option.label} 
+                      style={styles.optionImage}
+                    />
+                  )}
+                  <input
+                    type="radio"
+                    name={question.id}
+                    value={optionValue}
+                    checked={formData[question.id] === optionValue}
+                    onChange={(e) => handleChange(question.id, e.target.value)}
+                    style={styles.radioInput}
                   />
-                )}
-                <input
-                  type="radio"
-                  name={question.id}
-                  value={option.value}
-                  checked={formData[question.id] === option.value}
-                  onChange={(e) => handleChange(question.id, e.target.value)}
-                  style={styles.radioInput}
-                />
-                <label style={styles.imageLabel}>{option.label}</label>
-              </div>
-            ))}
+                  <label style={styles.imageLabel}>{option.label}</label>
+                </div>
+              );
+            })}
           </div>
         );
 

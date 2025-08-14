@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './CloudAccountForm.css'; // Move styles to separate CSS file
 
 const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = false }) => {
   // State management
@@ -7,121 +6,160 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = f
     selectedAccount: initialData.account || '',
     otherValue: initialData.otherValue || '',
     ipAddress: initialData.ipAddress || '',
-    connectionStatus: {},
-    hoveredSection: null,
-    isMobile: false
+    connectionStatus: {}
   });
 
-  // Configuration data
-  const ACCOUNTS = [
-    { id: 'baylor1', label: 'Baylor University 444 - Spine' },
-    { id: 'baylor2', label: 'Baylor University Cadaver Lab 222 - Spine' },
-    { id: 'baylor3', label: 'Baylor University Commons 111' },
+  // Available accounts
+  const accounts = [
+    { id: 'IM3000-EGX00', label: 'IM3000-EGX00' },
+    { id: 'IM3000-CTC03', label: 'IM3000-CTC03' },
     { id: 'other', label: 'Other' }
   ];
 
-  // Effects
-  useEffect(() => {
-    const checkMobile = () => {
-      setFormState(prev => ({ ...prev, isMobile: window.innerWidth <= 768 }));
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Event handlers
-  const handleAccountChange = (value) => {
-    setFormState(prev => ({ ...prev, selectedAccount: value }));
+  // Handle form changes
+  const handleAccountSelect = (accountId) => {
+    setFormState(prev => ({
+      ...prev,
+      selectedAccount: accountId,
+      otherValue: accountId !== 'other' ? '' : prev.otherValue
+    }));
   };
 
-  const handleOtherValueChange = (value) => {
-    setFormState(prev => ({ ...prev, otherValue: value }));
+  const handleOtherChange = (value) => {
+    setFormState(prev => ({
+      ...prev,
+      otherValue: value
+    }));
   };
 
-  const handleIpAddressChange = (value) => {
-    setFormState(prev => ({ ...prev, ipAddress: value }));
+  const handleIpChange = (value) => {
+    setFormState(prev => ({
+      ...prev,
+      ipAddress: value
+    }));
   };
 
   const handleConnect = (accountId) => {
-    setFormState(prev => ({
-      ...prev,
-      connectionStatus: { ...prev.connectionStatus, [accountId]: true }
-    }));
+    // Simulate connection
+    setTimeout(() => {
+      setFormState(prev => ({
+        ...prev,
+        connectionStatus: {
+          ...prev.connectionStatus,
+          [accountId]: true
+        }
+      }));
+    }, 1000);
   };
 
-  const handleSectionHover = (sectionId, isEntering) => {
-    setFormState(prev => ({ 
-      ...prev, 
-      hoveredSection: isEntering ? sectionId : null 
-    }));
+  const isConnected = (accountId) => {
+    return formState.connectionStatus[accountId] || false;
   };
 
   const handleSubmit = () => {
-    const formData = {
+    const submissionData = {
       account: formState.selectedAccount,
-      otherValue: formState.selectedAccount === 'other' ? formState.otherValue : '',
+      otherValue: formState.otherValue,
       ipAddress: formState.ipAddress
     };
-    onNext(formData);
+    onNext(submissionData);
   };
-
-  // Helper functions
-  const isConnected = (accountId) => formState.connectionStatus[accountId];
-  const isOtherSelected = () => formState.selectedAccount === 'other';
-  const isAccountSelected = (accountId) => formState.selectedAccount === accountId;
 
   return (
     <div className="questioner-step-container">
-      <h1 className="questioner-form-title">ACU Cloud Account Configuration</h1>
+      <h1 className="questioner-form-title">Cloud Account Configuration</h1>
       
       <div className="questioner-form-section">
-        {/* Cloud Account Selection Section */}
-        <FormSection
-          id="cloud-account"
-          label="Connect to Acuity Surgical – Cloud Account"
-          isHovered={formState.hoveredSection === 'cloud-account'}
-          onHover={handleSectionHover}
-        >
-          <div className="account-options">
-            {ACCOUNTS.map(account => (
-              <AccountOption
-                key={account.id}
-                account={account}
-                isSelected={isAccountSelected(account.id)}
-                isConnected={isConnected(account.id)}
-                showOtherInput={account.id === 'other' && isOtherSelected()}
-                otherValue={formState.otherValue}
-                onSelect={handleAccountChange}
-                onConnect={handleConnect}
-                onOtherChange={handleOtherValueChange}
-              />
+        {/* Account Selection */}
+        <div className="questioner-form-group">
+          <label className="questioner-form-label">Select an account to connect:</label>
+          <div className="questioner-radio-group">
+            {accounts.map(account => (
+              <label key={account.id} className="questioner-radio-option">
+                <input
+                  type="radio"
+                  name="account"
+                  value={account.id}
+                  checked={formState.selectedAccount === account.id}
+                  onChange={(e) => handleAccountSelect(e.target.value)}
+                  className="questioner-radio-input"
+                />
+                <span className="questioner-radio-label">{account.label}</span>
+                
+                {account.id === 'other' && formState.selectedAccount === 'other' && (
+                  <input
+                    type="text"
+                    value={formState.otherValue}
+                    onChange={(e) => handleOtherChange(e.target.value)}
+                    onClick={(e) => e.stopPropagation()}
+                    placeholder="Enter value"
+                    className="questioner-text-input"
+                    style={{ marginLeft: '10px', flex: 1, maxWidth: '200px' }}
+                  />
+                )}
+                
+                {account.id !== 'other' && (
+                  <button
+                    className={`connect-button ${isConnected(account.id) ? 'connected' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      handleConnect(account.id);
+                    }}
+                    style={{
+                      marginLeft: 'auto',
+                      minWidth: '80px',
+                      padding: '6px 12px',
+                      borderRadius: '4px',
+                      border: 'none',
+                      backgroundColor: isConnected(account.id) ? '#01a101' : '#d7d7d7',
+                      color: isConnected(account.id) ? '#ffffff' : '#000000',
+                      fontSize: '14px',
+                      fontFamily: "'Montserrat', sans-serif",
+                      cursor: 'pointer',
+                      transition: 'all 0.3s'
+                    }}
+                  >
+                    {isConnected(account.id) ? 'Connected' : 'Connect'}
+                  </button>
+                )}
+              </label>
             ))}
           </div>
-        </FormSection>
+        </div>
 
         {/* IP Address Section */}
-        <FormSection
-          id="ip-address"
-          label="IP Address Configuration"
-          isHovered={formState.hoveredSection === 'ip-address'}
-          onHover={handleSectionHover}
-        >
-          <div className="ip-input-container">
+        <div className="questioner-form-group">
+          <label className="questioner-form-label">Enter I.P. address:</label>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <input
               type="text"
               value={formState.ipAddress}
-              onChange={(e) => handleIpAddressChange(e.target.value)}
-              placeholder="Enter IP address"
+              onChange={(e) => handleIpChange(e.target.value)}
+              placeholder="192.168.1.1"
               className="questioner-text-input"
+              style={{ flex: 1, maxWidth: '300px' }}
             />
-            <ConnectButton
-              isConnected={isConnected('ipAddress')}
+            <button
+              className={`connect-button ${isConnected('ipAddress') ? 'connected' : ''}`}
               onClick={() => handleConnect('ipAddress')}
-            />
+              style={{
+                minWidth: '80px',
+                padding: '6px 12px',
+                borderRadius: '4px',
+                border: 'none',
+                backgroundColor: isConnected('ipAddress') ? '#01a101' : '#d7d7d7',
+                color: isConnected('ipAddress') ? '#ffffff' : '#000000',
+                fontSize: '14px',
+                fontFamily: "'Montserrat', sans-serif",
+                cursor: 'pointer',
+                transition: 'all 0.3s'
+              }}
+            >
+              {isConnected('ipAddress') ? 'Connected' : 'Connect'}
+            </button>
           </div>
-        </FormSection>
+        </div>
       </div>
 
       {/* Navigation */}
@@ -147,71 +185,5 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = f
     </div>
   );
 };
-
-// Reusable Components
-const FormSection = ({ id, label, children, isHovered, onHover }) => (
-  <div 
-    className={`questioner-form-group ${isHovered ? 'hovered' : ''}`}
-    onMouseEnter={() => onHover(id, true)}
-    onMouseLeave={() => onHover(id, false)}
-  >
-    <label className="questioner-form-label">{label}</label>
-    {children}
-  </div>
-);
-
-const AccountOption = ({ 
-  account, 
-  isSelected, 
-  isConnected, 
-  showOtherInput, 
-  otherValue,
-  onSelect, 
-  onConnect, 
-  onOtherChange 
-}) => (
-  <div className="questioner-radio-option">
-    <input
-      type="radio"
-      name="account"
-      id={account.id}
-      value={account.id}
-      checked={isSelected}
-      onChange={(e) => onSelect(e.target.value)}
-      className="questioner-radio-input"
-    />
-    <label htmlFor={account.id} className="questioner-radio-label">
-      {account.label}
-    </label>
-    
-    {showOtherInput && (
-      <input
-        type="text"
-        value={otherValue}
-        onChange={(e) => onOtherChange(e.target.value)}
-        onClick={(e) => e.stopPropagation()}
-        placeholder="Enter value"
-        className="questioner-text-input"
-      />
-    )}
-    
-    <ConnectButton
-      isConnected={isConnected}
-      onClick={(e) => {
-        e.stopPropagation();
-        onConnect(account.id);
-      }}
-    />
-  </div>
-);
-
-const ConnectButton = ({ isConnected, onClick }) => (
-  <button
-    className={`connect-button ${isConnected ? 'connected' : ''}`}
-    onClick={onClick}
-  >
-    {isConnected ? 'Connected' : 'Connect'}
-  </button>
-);
 
 export default CloudAccountForm;

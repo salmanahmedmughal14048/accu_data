@@ -3,18 +3,6 @@ import React, { useState } from 'react';
 const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
   const [isInitialized, setIsInitialized] = useState(initialData.isInitialized || false);
   const [isInitializing, setIsInitializing] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if screen is mobile
-  React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const handleInitialize = () => {
     setIsInitializing(true);
@@ -29,125 +17,53 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
     onNext({ isInitialized });
   };
 
-  const styles = {
-    container: {
-      flex: 1,
-      backgroundColor: '#eaeaea',
-      padding: '40px',
-      overflow: 'visible',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100%'
-    },
-    title: {
-      fontSize: '24px',
-      fontWeight: '700',
-      color: '#000000',
-      marginBottom: '40px',
-      fontFamily: "'Montserrat', sans-serif"
-    },
-    formSection: {
-      flex: 1,
-      paddingBottom: '80px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start'
-    },
-    initializeSection: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '20px',
-      marginBottom: '30px'
-    },
-    label: {
-      fontSize: '15px',
-      color: '#4a5568',
-      fontFamily: "'Montserrat', sans-serif"
-    },
-    initializeButton: {
-      backgroundColor: '#d7d7d7',
-      color: '#333333',
-      border: 'none',
-      padding: '10px 24px',
-      borderRadius: '6px',
-      fontSize: '15px',
-      fontWeight: '600',
-      cursor: 'pointer',
-      fontFamily: "'Montserrat', sans-serif",
-      transition: 'all 0.3s',
-      minWidth: '100px'
-    },
-    initializeButtonActive: {
-      backgroundColor: '#008fe0',
-      color: '#ffffff'
-    },
-    initializeButtonDisabled: {
-      backgroundColor: '#01a101',
-      color: '#ffffff',
-      cursor: 'default'
-    },
-    statusMessage: {
-      fontSize: '15px',
-      color: '#01a101',
-      fontFamily: "'Montserrat', sans-serif",
-      marginTop: '20px',
-      padding: '12px 20px',
-      backgroundColor: '#e6f7e6',
-      borderRadius: '6px',
-      border: '1px solid #01a101'
-    },
-  };
-
-  const getButtonStyle = () => {
-    if (isInitialized) {
-      return { ...styles.initializeButton, ...styles.initializeButtonDisabled };
-    }
-    if (isInitializing) {
-      return { ...styles.initializeButton, ...styles.initializeButtonActive };
-    }
-    return styles.initializeButton;
-  };
-
-  const getButtonText = () => {
-    if (isInitialized) return 'Initialized';
-    if (isInitializing) return 'Initializing...';
-    return 'Initialize';
-  };
-
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Barcode scanner setup</h1>
+    <div className="questioner-step-container">
+      <h1 className="questioner-form-title">Barcode Scanner Setup</h1>
       
-      <div style={styles.formSection}>
-        <div style={styles.initializeSection}>
-          <span style={styles.label}>Initialize handheld wireless barcode scanner:</span>
-          <button 
-            style={getButtonStyle()}
-            onClick={handleInitialize}
-            disabled={isInitialized || isInitializing}
-            onMouseEnter={(e) => {
-              if (!isInitialized && !isInitializing) {
-                e.target.style.backgroundColor = '#008fe0';
-                e.target.style.color = '#ffffff';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isInitialized && !isInitializing) {
-                e.target.style.backgroundColor = '#d7d7d7';
-                e.target.style.color = '#333333';
-              }
-            }}
-          >
-            {getButtonText()}
-          </button>
-        </div>
-
-        {isInitialized && (
-          <div style={styles.statusMessage}>
-            ✓ Barcode scanner has been successfully initialized and is ready to use.
+      <div className="questioner-form-section">
+        <div className="questioner-form-group">
+          <label className="questioner-form-label">
+            Initialize the barcode scanner:
+          </label>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <button
+              onClick={handleInitialize}
+              disabled={isInitialized || isInitializing}
+              style={{
+                backgroundColor: isInitialized ? '#01a101' : (isInitializing ? '#008fe0' : '#d7d7d7'),
+                color: isInitialized || isInitializing ? '#ffffff' : '#333333',
+                border: 'none',
+                padding: '10px 24px',
+                borderRadius: '6px',
+                fontSize: '15px',
+                fontWeight: '600',
+                cursor: isInitialized ? 'default' : 'pointer',
+                fontFamily: "'Montserrat', sans-serif",
+                transition: 'all 0.3s',
+                minWidth: '100px'
+              }}
+            >
+              {isInitialized ? 'Initialized' : (isInitializing ? 'Initializing...' : 'Initialize')}
+            </button>
           </div>
-        )}
+
+          {isInitialized && (
+            <div style={{
+              fontSize: '15px',
+              color: '#01a101',
+              fontFamily: "'Montserrat', sans-serif",
+              marginTop: '20px',
+              padding: '12px 20px',
+              backgroundColor: '#e6f7e6',
+              borderRadius: '6px',
+              border: '1px solid #01a101'
+            }}>
+              ✓ Barcode scanner successfully initialized
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="questioner-nav-buttons">
