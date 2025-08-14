@@ -18,6 +18,23 @@ const Submit = ({
     }, 3000);
   };
 
+  const downloadJSON = (data, filename) => {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownload = () => {
+    downloadJSON(formData, 'patient_data.json');
+  };
+
   const styles = {
     container: {
       flex: 1,
@@ -69,7 +86,8 @@ const Submit = ({
       borderRadius: '8px',
       marginLeft: '-20px',
       marginRight: '-20px',
-      transition: 'background-color 0.3s'
+      transition: 'background-color 0.3s',
+      cursor: 'pointer'
     },
     iconContainer: {
       width: '40px',
@@ -232,7 +250,7 @@ const Submit = ({
             <span style={styles.infoText}>"Patient's Questionnaire"</span>
           </div>
           
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} onClick={handleDownload}>
             <div style={styles.iconContainer}>
               <svg style={styles.icon} viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>

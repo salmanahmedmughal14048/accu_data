@@ -17,6 +17,23 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
     }, 3000);
   };
 
+  const downloadJSON = (data, filename) => {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownload = () => {
+    downloadJSON(formData, 'hardware_data.json');
+  };
+
   const styles = {
     container: {
       flex: 1,
@@ -163,6 +180,47 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
       borderTopColor: '#1e88e5',
       animation: 'spin 1s linear infinite',
       marginBottom: '20px'
+    },
+    caseNumber: {
+      color: '#999',
+      fontStyle: 'italic'
+    },
+    infoItem: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: '20px',
+      padding: '20px',
+      backgroundColor: 'rgba(251, 247, 247, 1)',
+      borderRadius: '8px',
+      marginLeft: '-20px',
+      marginRight: '-20px',
+      transition: 'background-color 0.3s'
+    },
+    iconContainer: {
+      width: '40px',
+      height: '40px',
+      backgroundColor: '#1e88e5',
+      borderRadius: '6px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: '15px',
+      flexShrink: 0
+    },
+    icon: {
+      width: '20px',
+      height: '20px',
+      fill: 'white'
+    },
+    infoText: {
+      fontSize: '15px',
+      color: '#2d3748',
+      fontWeight: '500',
+      fontFamily: "'Montserrat', sans-serif"
+    },
+    infoSection: {
+      marginBottom: '40px',
+      cursor: 'pointer'
     }
   };
 
@@ -198,6 +256,18 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
               ACU Data upon submission. You retrieve these settings and edit 
               them by selecting the: <span style={styles.setupTab}>"Setup Tab"</span>
             </p>
+          </div>
+          <div style={styles.infoSection} onClick={handleDownload}>
+            <div style={styles.infoItem}>
+              <div style={styles.iconContainer}>
+                <svg style={styles.icon} viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </div>
+              <span style={styles.infoText}>
+                "Patient's Case Number:<span style={styles.caseNumber}>SMITH-4569"</span>
+              </span>
+            </div>
           </div>
 
           <div style={styles.contactSection}>
