@@ -50,9 +50,9 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
                 style={{
                   ...styles.radioOption,
                   flexDirection: 'column',
-                  border: '2px solid ' + (formData.ergonomicHandle === wand.id ? '#008fe0' : 'transparent'),
+                  border: '2px solid transparent',
                   borderRadius: '8px',
-                  backgroundColor: formData.ergonomicHandle === wand.id ? 'rgba(251, 247, 247, 1)' : 'transparent'
+                  backgroundColor: 'transparent'
                 }}
                 onClick={() => handleChange('ergonomicHandle', wand.id)}
               >
@@ -79,9 +79,9 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
             <label 
               style={{
                 ...styles.radioOption,
-                border: '2px solid ' + (formData.fingerTrigger === 'One finger trigger' ? '#008fe0' : 'transparent'),
+                border: '2px solid transparent',
                 borderRadius: '8px',
-                backgroundColor: formData.fingerTrigger === 'One finger trigger' ? 'rgba(251, 247, 247, 1)' : 'transparent'
+                backgroundColor: 'transparent'
               }}
             >
               <input
@@ -99,9 +99,9 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
             <label 
               style={{
                 ...styles.radioOption,
-                border: '2px solid ' + (formData.fingerTrigger === 'Two finger trigger' ? '#008fe0' : 'transparent'),
+                border: '2px solid transparent',
                 borderRadius: '8px',
-                backgroundColor: formData.fingerTrigger === 'Two finger trigger' ? 'rgba(251, 247, 247, 1)' : 'transparent'
+                backgroundColor: 'transparent'
               }}
             >
               <input
