@@ -131,33 +131,11 @@ function Questioner({
     };
   };
 
-  // Validate and log field completeness
-  const validateFieldCompleteness = (normalizedData) => {
-    const { medical, hardware } = normalizedData;
-    // Medical fields validation
-    Object.keys(medical).forEach(field => {
-      const value = medical[field];
-      const status = value && value !== '' ? '✅' : '❌';
-    });
-    
-    Object.keys(hardware).forEach(stepKey => {
-      if (hardware[stepKey] && typeof hardware[stepKey] === 'object') {
-        Object.keys(hardware[stepKey]).forEach(field => {
-          const value = hardware[stepKey][field];
-          const status = value && value !== '' ? '✅' : '❌';
-        });
-      }
-    });
-  };
-
   // Handle completion of hardware questionnaire
   const handleHardwareComplete = (formData) => {
     setHardwareData(formData);
     // Clean and normalize the data for database storage
     const normalizedData = normalizeQuestionnaireData(medicalData, formData);
-    // Validate field completeness
-    validateFieldCompleteness(normalizedData);
-    console.log(JSON.stringify(normalizedData, null, 2));
     if (onComplete) {
       onComplete(normalizedData);
     }
