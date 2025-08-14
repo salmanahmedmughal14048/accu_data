@@ -542,7 +542,7 @@
 /* Consistent Form Title Styling - Both Questionnaires */
 .questioner-form-title {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     color: #000000;
     margin-bottom: 30px;
     font-family: 'Montserrat', sans-serif;
@@ -600,6 +600,7 @@
     padding: 20px 0;
     margin-top: 40px;
     border-top: 1px solid #e2e8f0;
+    gap: 20px;
 }
 
 .questioner-nav-button {

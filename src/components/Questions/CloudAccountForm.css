@@ -14,7 +14,7 @@
 
 /* Typography */
 .cloud-account-title {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   color: #000000;
   margin-bottom: 30px;
@@ -23,7 +23,7 @@
 
 .section-label {
   display: block;
-  font-size: 18px;
+  font-size: 15px;
   color: #4a5568;
   margin-bottom: 15px;
   font-weight: 500;
@@ -31,7 +31,7 @@
 }
 
 .account-label {
-  font-size: 18px;
+  font-size: 15px;
   color: #2d3748;
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
@@ -86,7 +86,7 @@
   padding: 8px 12px;
   border: 2px solid #e2e8f0;
   border-radius: 6px;
-  font-size: 18px;
+  font-size: 15px;
   color: #2d3748;
   font-family: 'Montserrat', sans-serif;
 }
@@ -102,7 +102,7 @@
   padding: 10px 12px;
   border: 2px solid #e2e8f0;
   border-radius: 6px;
-  font-size: 18px;
+  font-size: 15px;
   color: #2d3748;
   font-family: 'Montserrat', sans-serif;
 }
@@ -147,7 +147,7 @@
 /* Divider */
 .form-divider {
   margin: 30px 0;
-  font-size: 18px;
+  font-size: 15px;
   color: #4a5568;
   font-family: 'Montserrat', sans-serif;
 }
@@ -176,16 +176,16 @@
   }
   
   .cloud-account-title {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 20px;
   }
   
   .section-label {
-    font-size: 16px;
+    font-size: 15px;
   }
   
   .account-label {
-    font-size: 16px;
+    font-size: 15px;
   }
   
   .other-input {

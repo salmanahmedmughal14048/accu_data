@@ -41,7 +41,7 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
       minHeight: '100%'
     },
     title: {
-      fontSize: '32px',
+      fontSize: '24px',
       fontWeight: '700',
       color: '#000000',
       marginBottom: '40px',
@@ -61,7 +61,7 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
       marginBottom: '30px'
     },
     label: {
-      fontSize: '18px',
+      fontSize: '15px',
       color: '#4a5568',
       fontFamily: "'Montserrat', sans-serif"
     },
@@ -88,7 +88,7 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
       cursor: 'default'
     },
     statusMessage: {
-      fontSize: '18px',
+      fontSize: '15px',
       color: '#01a101',
       fontFamily: "'Montserrat', sans-serif",
       marginTop: '20px',

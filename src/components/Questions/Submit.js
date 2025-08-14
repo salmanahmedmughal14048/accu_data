@@ -29,7 +29,7 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
       minHeight: '100%'
     },
     title: {
-      fontSize: '32px',
+      fontSize: '24px',
       fontWeight: '700',
       color: '#000000',
       marginBottom: '30px',
@@ -68,13 +68,14 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
       marginBottom: '30px'
     },
     message: {
-      fontSize: '18px',
+      fontSize: '15px',
       color: '#333333',
       lineHeight: '1.6',
       fontFamily: "'Montserrat', sans-serif",
       marginBottom: '15px',
       position: 'relative',
-      zIndex: 1
+      zIndex: 1,
+      padding:'0 10px'
     },
     setupTab: {
       fontWeight: '700',
@@ -84,10 +85,12 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
       marginTop: '30px',
       textAlign: 'center',
       width: '100%',
-      maxWidth: '600px'
+      maxWidth: '600px',
+       padding:'0 15px'
+      
     },
     contactText: {
-      fontSize: '18px',
+      fontSize: '15px',
       color: '#4a5568',
       marginBottom: '15px',
       fontFamily: "'Montserrat', sans-serif"
@@ -95,7 +98,7 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
     emailLink: {
       color: '#008fe0',
       textDecoration: 'underline',
-      fontSize: '18px',
+      fontSize: '15px',
       fontFamily: "'Montserrat', sans-serif",
       display: 'inline-flex',
       alignItems: 'center',
@@ -207,7 +210,7 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
               ACU_Data_PatientData@acuitysurgical.com
             </a>
             <div style={{ marginTop: '10px' }}>
-              <span style={{ ...styles.contactText, fontSize: '18px' }}>
+              <span style={{ ...styles.contactText, fontSize: '15px' }}>
                 any time you need.
               </span>
             </div>

@@ -50,7 +50,7 @@ const ConfigurableForm = ({
     container: {
       flex: 1,
       backgroundColor: '#eaeaea',
-      padding: '30px',
+      padding: '40px',
       overflow: 'visible',
       position: 'relative',
       display: 'flex',
@@ -58,7 +58,7 @@ const ConfigurableForm = ({
       minHeight: '100%'
     },
     title: {
-      fontSize: '28px',
+      fontSize: '24px',
       fontWeight: '700',
       color: '#000000',
       marginBottom: '8px',
@@ -88,7 +88,7 @@ const ConfigurableForm = ({
     },
     label: {
       display: 'block',
-      fontSize: '16px',
+      fontSize: '15px',
       color: '#4a5568',
       marginBottom: '15px',
       fontWeight: '500',
@@ -112,7 +112,7 @@ const ConfigurableForm = ({
       cursor: 'pointer'
     },
     radioLabel: {
-      fontSize: '16px',
+      fontSize: '15px',
       color: '#2d3748',
       fontFamily: "'Montserrat', sans-serif"
     },

@@ -30,7 +30,7 @@ const Submit = ({
       minHeight: '100%'
     },
     title: {
-      fontSize: '32px',
+      fontSize: '24px',
       fontWeight: '700',
       color: '#000000',
       marginBottom: '30px',
@@ -49,7 +49,7 @@ const Submit = ({
       objectFit: 'cover'
     },
     description: {
-      fontSize: '18px',
+      fontSize: '15px',
       color: '#4a5568',
       lineHeight: '1.5',
       marginBottom: '40px',
@@ -88,7 +88,7 @@ const Submit = ({
       fill: 'white'
     },
     infoText: {
-      fontSize: '18px',
+      fontSize: '15px',
       color: '#2d3748',
       fontWeight: '500',
       fontFamily: "'Montserrat', sans-serif"
@@ -106,7 +106,7 @@ const Submit = ({
       marginRight: '-20px'
     },
     contactText: {
-      fontSize: '16px',
+      fontSize: '15px',
       color: '#4a5568',
       marginBottom: '15px',
       lineHeight: '1.4',
@@ -125,7 +125,7 @@ const Submit = ({
     emailLink: {
       color: '#1e88e5',
       textDecoration: 'none',
-      fontSize: '16px',
+      fontSize: '15px',
       fontFamily: "'Montserrat', sans-serif"
     },
     submitButton: {
