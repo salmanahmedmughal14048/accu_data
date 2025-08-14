@@ -19,64 +19,51 @@ const Submit = ({
   };
 
   const downloadJSON = (data, filename) => {
-    const expectedMedicalFields = [
-      'treatmentLevel', 'preferredApproach', 'excludedApproach', 'patientSmoker',
-      'smokingFrequency', 'smokingYears', 'hasDiabetes', 'diabetesType', 'hasOsteoporosis',
-      'hasOsteopenia', 'hasRheumatoidArthritis', 'priorSurgery', 'surgerySite',
-      'previousSurgerySite', 'bmiCategory', 'restrictActivity', 'requireTreatments',
-      'adjacentLevelRisk', 'patientSpecificDevice', 'preferredFootprint', 'maximumAperture',
-      'fixationHoles', 'riskCompliance'
-    ];
+    const questionMap = {
+      'treatmentLevel': 'Which levels do you intend to treat on the patient?',
+      'preferredApproach': 'Do you have a preferred approach?',
+      'excludedApproach': 'Do you have any approach you do not want to analyze?',
+      'patientSmoker': 'Do you smoke?',
+      'smokingFrequency': 'How frequently does the patient smoke?',
+      'smokingYears': 'How many years has the patient smoked?',
+      'hasDiabetes': 'Does the patient have diabetes?',
+      'diabetesType': 'If yes: Select type?',
+      'hasOsteoporosis': 'Does the patient have osteoporosis?',
+      'hasOsteopenia': 'Does the patient have osteopenia?',
+      'hasRheumatoidArthritis': 'Does the patient have rheumatoid arthritis?',
+      'priorSurgery': 'Does the patient have prior surgery at the level(s) to be treated or adjacent levels?',
+      'surgerySite': 'Select surgery site:',
+      'previousSurgerySite': 'Select "previous surgery" site:',
+      'bmiCategory': 'Describe the patient Body Mass Index (BMI):',
+      'restrictActivity': 'Is the patient likely to restrict post operative activity? ',
+      'requireTreatments': 'Would the patient require other post operative treatments? i.e.: bone stimulation',
+      'adjacentLevelRisk': 'Is the patient at risk for treating adjacent level degeneration?',
+      'patientSpecificDevice': 'Would you prefer a patient specific device?',
+      'preferredFootprint': 'If yes, do you have a preferred footprint?',
+      'maximumAperture': "What's the maximum aperture you work through?",
+      'fixationHoles': 'What is the number of "fixation or interfixation" holes?',
+      'riskCompliance': "Regardless of the analysis, what is the risk of subsidence and the patient's anticipated postoperative compliance?"
+    };
 
-    let cleanMedicalData = {};
-    const medicalData = data;
-    if (medicalData) {
-      let deepestStep = null;
-      let maxFields = 0;
-      
-      const findDeepestStep = (stepData) => {
-        if (typeof stepData === 'object' && stepData !== null) {
-          Object.keys(stepData).forEach(key => {
-            if (key.startsWith('step') && typeof stepData[key] === 'object') {
-              const fieldCount = Object.keys(stepData[key]).filter(k => !k.startsWith('step') && k !== 'completedAt').length;
-              if (fieldCount >= maxFields) {
-                maxFields = fieldCount;
-                deepestStep = stepData[key];
-              }
-              findDeepestStep(stepData[key]);
-            }
-          });
-        }
-      };
-      
-      findDeepestStep(medicalData);
-      
-      if (deepestStep && Object.keys(deepestStep).length > 0) {
-        cleanMedicalData = { ...deepestStep };
-      } else if (medicalData.step8) {
-        cleanMedicalData = { ...medicalData.step8 };
-      } else {
-        Object.keys(medicalData).forEach(key => {
-            if (!key.startsWith('step')) {
-                cleanMedicalData[key] = medicalData[key];
-            }
-        })
+    const jsonData = [];
+    const collectedData = {};
+
+    // Consolidate answers from all steps into a single object
+    for (const key in data) {
+      if (key.startsWith('step') && typeof data[key] === 'object' && data[key] !== null) {
+        Object.assign(collectedData, data[key]);
       }
-      
-      Object.keys(cleanMedicalData).forEach(key => {
-        if (key.startsWith('step') || key === 'completedAt') {
-          delete cleanMedicalData[key];
-        }
-      });
+    }
 
-      expectedMedicalFields.forEach(field => {
-        if (!(field in cleanMedicalData)) {
-          cleanMedicalData[field] = null;
-        }
+    // Create the question-answer array
+    for (const field in questionMap) {
+      jsonData.push({
+        question: questionMap[field],
+        answer: collectedData[field] || null
       });
     }
 
-    const jsonStr = JSON.stringify(cleanMedicalData, null, 2);
+    const jsonStr = JSON.stringify(jsonData, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');

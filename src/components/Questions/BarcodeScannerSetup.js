@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { styles } from './sharedStyles';
 
 const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
-  const [isInitialized, setIsInitialized] = useState(initialData.isInitialized || false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [isInitializing, setIsInitializing] = useState(false);
 
   const handleInitialize = () => {

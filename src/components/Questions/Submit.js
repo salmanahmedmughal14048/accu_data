@@ -18,31 +18,42 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
   };
 
   const downloadJSON = (data, filename) => {
-    const flatHardwareData = {};
-    const hardwareData = data;
-    if (hardwareData) {
-      for (let i = 1; i <= 5; i++) { // Only steps 1-5 as per normalization logic
-        const stepKey = `step${i}`;
-        if (hardwareData[stepKey] && typeof hardwareData[stepKey] === 'object') {
-          const stepData = hardwareData[stepKey];
-          Object.keys(stepData).forEach(key => {
-            if (!key.startsWith('step') && key !== 'completedAt') {
-              flatHardwareData[key] = stepData[key];
-            }
-          });
-        }
+    const questionMap = {
+      'account': 'Select an account to connect:',
+      'otherValue': 'Other Account',
+      'ipAddress': 'Enter I.P. address:',
+      'displayMonitor': 'Display Monitor',
+      'dataDevice': 'Data Device',
+      'pointingDevice': 'Pointing Device',
+      'sensorSize': 'Sensor head size',
+      'moreThanOne': 'Do you have more than one sensor head?',
+      'sameWand': 'Are all sensor heads the same size haptic wand?',
+      'ergonomicHandle': 'Select your ergonomic handle:',
+      'fingerTrigger': 'Select one or two finger trigger:',
+      'sensorSensitivity': 'Haptic sensor sensitivity:',
+      'sensorOptions': 'Haptic sensor options:',
+      'isInitialized': 'Initialize the barcode scanner:'
+    };
+
+    const jsonData = [];
+    const collectedData = {};
+
+    // Consolidate answers from all steps into a single object
+    for (const key in data) {
+      if (key.startsWith('step') && typeof data[key] === 'object' && data[key] !== null) {
+        Object.assign(collectedData, data[key]);
       }
     }
 
-    if (Object.keys(flatHardwareData).length === 0 && hardwareData) {
-        Object.keys(hardwareData).forEach(key => {
-            if (!key.startsWith('step') && key !== 'completedAt') {
-                flatHardwareData[key] = hardwareData[key];
-            }
-        })
+    // Create the question-answer array
+    for (const field in questionMap) {
+      jsonData.push({
+        question: questionMap[field],
+        answer: collectedData[field] || null
+      });
     }
 
-    const jsonStr = JSON.stringify(flatHardwareData, null, 2);
+    const jsonStr = JSON.stringify(jsonData, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
