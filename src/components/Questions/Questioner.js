@@ -16,9 +16,25 @@ function Questioner({
 
    
 
+  const downloadJSON = (data, filename) => {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   // Handle completion of medical questionnaire
   const handleMedicalComplete = (formData) => {
     setMedicalData(formData);
+    if (window.confirm('Do you want to download a file for this questionnaire data?')) {
+      downloadJSON(formData, 'medical_questionnaire.json');
+    }
     setCurrentPhase('hardware'); // Move to hardware questionnaire
   };
 
@@ -151,6 +167,9 @@ function Questioner({
   // Handle completion of hardware questionnaire
   const handleHardwareComplete = (formData) => {
     setHardwareData(formData);
+    if (window.confirm('Do you want to download a file for this questionnaire data?')) {
+      downloadJSON(formData, 'hardware_questionnaire.json');
+    }
     // Clean and normalize the data for database storage
     const normalizedData = normalizeQuestionnaireData(medicalData, formData);
     // Validate field completeness
