@@ -1,7 +1,6 @@
+
 import React, { useState } from 'react';
-import sensorSmall from '../../assets/questions/images/sensor-small.png';
-import sensorMedium from '../../assets/questions/images/sensor-medium.png';
-import sensorLarge from '../../assets/questions/images/sensor-large.png';
+import { styles } from './sharedStyles';
 
 const SensorHeadConfiguration = ({ onNext, onPrev, initialData = {} }) => {
   const [formData, setFormData] = useState({
@@ -21,76 +20,12 @@ const SensorHeadConfiguration = ({ onNext, onPrev, initialData = {} }) => {
     onNext(formData);
   };
 
-  const styles = {
-    container: {
-      flex: 1,
-      backgroundColor: '#eaeaea',
-      padding: '40px',
-      overflow: 'visible',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100%'
-    },
-    title: {
-      fontSize: '24px',
-      fontWeight: '700',
-      color: '#000000',
-      marginBottom: '8px',
-      fontFamily: "'Montserrat', sans-serif"
-    },
-    description: {
-      fontSize: '14px',
-      color: '#666666',
-      marginBottom: '25px',
-      fontFamily: "'Montserrat', sans-serif",
-      fontStyle: 'italic'
-    },
-    formSection: {
-      flex: 1,
-      paddingBottom: '80px'
-    },
-    formGroup: {
-      marginBottom: '25px'
-    },
-    label: {
-      display: 'block',
-      fontSize: '15px',
-      color: '#4a5568',
-      marginBottom: '15px',
-      fontWeight: '500',
-      fontFamily: "'Montserrat', sans-serif",
-      lineHeight: '1.4'
-    },
-    radioGroup: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px'
-    },
-    radioOption: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      cursor: 'pointer'
-    },
-    radioInput: {
-      width: '16px',
-      height: '16px',
-      cursor: 'pointer'
-    },
-    radioLabel: {
-      fontSize: '15px',
-      color: '#2d3748',
-      fontFamily: "'Montserrat', sans-serif"
-    }
-  };
-
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Sensor Head Configuration</h1>
       <p style={styles.description}>Configure your sensor head settings for optimal performance.</p>
       
-      <div style={styles.formSection}>
+      <div style={styles.form}>
         {/* Sensor Size Section */}
         <div style={styles.formGroup}>
           <label style={styles.label}>Sensor head size</label>

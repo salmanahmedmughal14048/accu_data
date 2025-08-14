@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import { styles } from './sharedStyles';
 
 const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
   const [isInitialized, setIsInitialized] = useState(initialData.isInitialized || false);
@@ -18,12 +20,12 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
   };
 
   return (
-    <div className="questioner-step-container">
-      <h1 className="questioner-form-title">Barcode Scanner Setup</h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Barcode Scanner Setup</h1>
       
-      <div className="questioner-form-section">
-        <div className="questioner-form-group">
-          <label className="questioner-form-label">
+      <div style={styles.form}>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>
             Initialize the barcode scanner:
           </label>
           

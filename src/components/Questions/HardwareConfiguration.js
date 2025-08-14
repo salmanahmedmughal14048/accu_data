@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import { styles } from './sharedStyles';
 
 const HardwareConfiguration = ({ onNext, onPrev, initialData = {} }) => {
   const [formData, setFormData] = useState({
@@ -18,68 +20,11 @@ const HardwareConfiguration = ({ onNext, onPrev, initialData = {} }) => {
     onNext(formData);
   };
 
-  const styles = {
-    container: {
-      flex: 1,
-      backgroundColor: '#eaeaea',
-      padding: '40px',
-      overflow: 'visible',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100%'
-    },
-    title: {
-      fontSize: '24px',
-      fontWeight: '700',
-      color: '#000000',
-      marginBottom: '30px',
-      fontFamily: "'Montserrat', sans-serif"
-    },
-    formSection: {
-      flex: 1,
-      paddingBottom: '80px'
-    },
-    formGroup: {
-      marginBottom: '25px'
-    },
-    label: {
-      display: 'block',
-      fontSize: '15px',
-      color: '#4a5568',
-      marginBottom: '15px',
-      fontWeight: '500',
-      fontFamily: "'Montserrat', sans-serif",
-      lineHeight: '1.4'
-    },
-    radioGroup: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px'
-    },
-    radioOption: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      cursor: 'pointer'
-    },
-    radioInput: {
-      width: '16px',
-      height: '16px',
-      cursor: 'pointer'
-    },
-    radioLabel: {
-      fontSize: '15px',
-      color: '#2d3748',
-      fontFamily: "'Montserrat', sans-serif"
-    }
-  };
-
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Hardware Configuration</h1>
       
-      <div style={styles.formSection}>
+      <div style={styles.form}>
         {/* Display Monitor Section */}
         <div style={styles.formGroup}>
           <label style={styles.label}>Display Monitor</label>

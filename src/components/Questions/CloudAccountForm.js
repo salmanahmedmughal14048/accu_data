@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+import { styles } from './sharedStyles';
 
 const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = false }) => {
   // State management
@@ -66,25 +68,25 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = f
   };
 
   return (
-    <div className="questioner-step-container">
-      <h1 className="questioner-form-title">Cloud Account Configuration</h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Cloud Account Configuration</h1>
       
-      <div className="questioner-form-section">
+      <div style={styles.form}>
         {/* Account Selection */}
-        <div className="questioner-form-group">
-          <label className="questioner-form-label">Select an account to connect:</label>
-          <div className="questioner-radio-group">
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Select an account to connect:</label>
+          <div style={styles.radioGroup}>
             {accounts.map(account => (
-              <label key={account.id} className="questioner-radio-option">
+              <label key={account.id} style={styles.radioOption}>
                 <input
                   type="radio"
                   name="account"
                   value={account.id}
                   checked={formState.selectedAccount === account.id}
                   onChange={(e) => handleAccountSelect(e.target.value)}
-                  className="questioner-radio-input"
+                  style={styles.radioInput}
                 />
-                <span className="questioner-radio-label">{account.label}</span>
+                <span style={styles.radioLabel}>{account.label}</span>
                 
                 {account.id === 'other' && formState.selectedAccount === 'other' && (
                   <input
@@ -93,8 +95,7 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = f
                     onChange={(e) => handleOtherChange(e.target.value)}
                     onClick={(e) => e.stopPropagation()}
                     placeholder="Enter value"
-                    className="questioner-text-input"
-                    style={{ marginLeft: '10px', flex: 1, maxWidth: '200px' }}
+                    style={{...styles.textInput, marginLeft: '10px', flex: 1, maxWidth: '200px' }}
                   />
                 )}
                 
@@ -129,16 +130,15 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = f
         </div>
 
         {/* IP Address Section */}
-        <div className="questioner-form-group">
-          <label className="questioner-form-label">Enter I.P. address:</label>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Enter I.P. address:</label>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <input
               type="text"
               value={formState.ipAddress}
               onChange={(e) => handleIpChange(e.target.value)}
               placeholder="192.168.1.1"
-              className="questioner-text-input"
-              style={{ flex: 1, maxWidth: '300px' }}
+              style={{...styles.textInput, flex: 1, maxWidth: '300px' }}
             />
             <button
               className={`connect-button ${isConnected('ipAddress') ? 'connected' : ''}`}

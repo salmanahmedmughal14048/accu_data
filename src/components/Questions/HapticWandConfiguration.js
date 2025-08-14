@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { styles } from './sharedStyles';
 import wandW21 from '../../assets/images/wand-w21.png';
 import wandWXE from '../../assets/images/wand-wxe.png';
 import wandWC3 from '../../assets/images/wand-wc3.png';
@@ -35,27 +36,22 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
   ];
 
   return (
-    <div className="questioner-step-container">
-      <h1 className="questioner-form-title">Haptic Wand Configuration</h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Haptic Wand Configuration</h1>
       
-      <div className="questioner-form-section">
+      <div style={styles.form}>
         {/* Wand Selection */}
-        <div className="questioner-form-group">
-          <label className="questioner-form-label">Select your ergonomic handle:</label>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Select your ergonomic handle:</label>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             {wandOptions.map(wand => (
               <div 
                 key={wand.id}
                 style={{
-                  display: 'flex',
+                  ...styles.radioOption,
                   flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '8px',
-                  cursor: 'pointer',
-                  padding: '10px',
                   border: '2px solid ' + (formData.ergonomicHandle === wand.id ? '#008fe0' : 'transparent'),
                   borderRadius: '8px',
-                  transition: 'all 0.3s',
                   backgroundColor: formData.ergonomicHandle === wand.id ? 'rgba(251, 247, 247, 1)' : 'transparent'
                 }}
                 onClick={() => handleChange('ergonomicHandle', wand.id)}
@@ -67,9 +63,9 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
                   value={wand.id}
                   checked={formData.ergonomicHandle === wand.id}
                   onChange={(e) => handleChange('ergonomicHandle', e.target.value)}
-                  className="questioner-radio-input"
+                  style={styles.radioInput}
                 />
-                <label htmlFor={`wand-${wand.id}`} style={{ fontSize: '14px', fontWeight: '600', color: '#2d3748', fontFamily: "'Montserrat', sans-serif" }}>{wand.label}</label>
+                <label htmlFor={`wand-${wand.id}`} style={{...styles.radioLabel, fontWeight: '600'}}>{wand.label}</label>
                 <img src={wand.image} alt={`${wand.label} wand`} style={{ width: '80px', height: '120px', objectFit: 'contain' }} />
               </div>
             ))}
@@ -77,12 +73,12 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
         </div>
 
         {/* Finger Trigger Selection */}
-        <div className="questioner-form-group">
-          <label className="questioner-form-label">Select one or two finger trigger:</label>
-          <div className="questioner-radio-group">
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Select one or two finger trigger:</label>
+          <div style={styles.radioGroup}>
             <label 
-              className="questioner-radio-option"
               style={{
+                ...styles.radioOption,
                 border: '2px solid ' + (formData.fingerTrigger === 'One finger trigger' ? '#008fe0' : 'transparent'),
                 borderRadius: '8px',
                 backgroundColor: formData.fingerTrigger === 'One finger trigger' ? 'rgba(251, 247, 247, 1)' : 'transparent'
@@ -94,15 +90,15 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
                 value="One finger trigger"
                 checked={formData.fingerTrigger === 'One finger trigger'}
                 onChange={(e) => handleChange('fingerTrigger', e.target.value)}
-                className="questioner-radio-input"
+                style={styles.radioInput}
               />
-              <span className="questioner-radio-label">One finger trigger</span>
+              <span style={styles.radioLabel}>One finger trigger</span>
               <img src={triggerOne} alt="One finger trigger" style={{ height: '60px', width: 'auto', objectFit: 'contain', marginLeft: 'auto' }} />
             </label>
 
             <label 
-              className="questioner-radio-option"
               style={{
+                ...styles.radioOption,
                 border: '2px solid ' + (formData.fingerTrigger === 'Two finger trigger' ? '#008fe0' : 'transparent'),
                 borderRadius: '8px',
                 backgroundColor: formData.fingerTrigger === 'Two finger trigger' ? 'rgba(251, 247, 247, 1)' : 'transparent'
@@ -114,79 +110,79 @@ const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevBut
                 value="Two finger trigger"
                 checked={formData.fingerTrigger === 'Two finger trigger'}
                 onChange={(e) => handleChange('fingerTrigger', e.target.value)}
-                className="questioner-radio-input"
+                style={styles.radioInput}
               />
-              <span className="questioner-radio-label">Two finger trigger</span>
+              <span style={styles.radioLabel}>Two finger trigger</span>
               <img src={triggerTwo} alt="Two finger trigger" style={{ height: '60px', width: 'auto', objectFit: 'contain', marginLeft: 'auto' }} />
             </label>
           </div>
         </div>
 
         {/* Sensor Sensitivity */}
-        <div className="questioner-form-group">
-          <label className="questioner-form-label">Haptic sensor sensitivity:</label>
-          <div className="questioner-radio-group">
-            <label className="questioner-radio-option">
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Haptic sensor sensitivity:</label>
+          <div style={styles.radioGroup}>
+            <label style={styles.radioOption}>
               <input
                 type="radio"
                 name="sensorSensitivity"
                 value="High sensitivity"
                 checked={formData.sensorSensitivity === 'High sensitivity'}
                 onChange={(e) => handleChange('sensorSensitivity', e.target.value)}
-                className="questioner-radio-input"
+                style={styles.radioInput}
               />
-              <span className="questioner-radio-label">High sensitivity</span>
+              <span style={styles.radioLabel}>High sensitivity</span>
             </label>
-            <label className="questioner-radio-option">
+            <label style={styles.radioOption}>
               <input
                 type="radio"
                 name="sensorSensitivity"
                 value="Low sensitivity"
                 checked={formData.sensorSensitivity === 'Low sensitivity'}
                 onChange={(e) => handleChange('sensorSensitivity', e.target.value)}
-                className="questioner-radio-input"
+                style={styles.radioInput}
               />
-              <span className="questioner-radio-label">Low sensitivity</span>
+              <span style={styles.radioLabel}>Low sensitivity</span>
             </label>
-            <label className="questioner-radio-option">
+            <label style={styles.radioOption}>
               <input
                 type="radio"
                 name="sensorSensitivity"
                 value="Custom"
                 checked={formData.sensorSensitivity === 'Custom'}
                 onChange={(e) => handleChange('sensorSensitivity', e.target.value)}
-                className="questioner-radio-input"
+                style={styles.radioInput}
               />
-              <span className="questioner-radio-label">Custom</span>
+              <span style={styles.radioLabel}>Custom</span>
             </label>
           </div>
         </div>
 
         {/* Sensor Options */}
-        <div className="questioner-form-group">
-          <label className="questioner-form-label">Haptic sensor options:</label>
-          <div className="questioner-radio-group">
-            <label className="questioner-radio-option">
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Haptic sensor options:</label>
+          <div style={styles.radioGroup}>
+            <label style={styles.radioOption}>
               <input
                 type="radio"
                 name="sensorOptions"
                 value="Vibrate + Sound"
                 checked={formData.sensorOptions === 'Vibrate + Sound'}
                 onChange={(e) => handleChange('sensorOptions', e.target.value)}
-                className="questioner-radio-input"
+                style={styles.radioInput}
               />
-              <span className="questioner-radio-label">Vibrate + Sound</span>
+              <span style={styles.radioLabel}>Vibrate + Sound</span>
             </label>
-            <label className="questioner-radio-option">
+            <label style={styles.radioOption}>
               <input
                 type="radio"
                 name="sensorOptions"
                 value="Vibrate only"
                 checked={formData.sensorOptions === 'Vibrate only'}
                 onChange={(e) => handleChange('sensorOptions', e.target.value)}
-                className="questioner-radio-input"
+                style={styles.radioInput}
               />
-              <span className="questioner-radio-label">Vibrate only</span>
+              <span style={styles.radioLabel}>Vibrate only</span>
             </label>
           </div>
         </div>
