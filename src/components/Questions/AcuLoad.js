@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Questioner.css';
 import ConfigurationListStandalone from './ConfigurationListStandalone';
-import ConfigurableForm from './HapticWandConfiguration';
+import ConfigurableForm from './ConfigurableForm';
 import Submit from './SubmitAcuLoad';
 import welcomeImage from '../../assets/questions/welcome.jpg';
 import { useHistory } from "react-router-dom";

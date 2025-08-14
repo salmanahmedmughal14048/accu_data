@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import wandW21 from '../../assets/images/wand-w21.png';
+import wandWXE from '../../assets/images/wand-wxe.png';
+import wandWC3 from '../../assets/images/wand-wc3.png';
+import wandWZ3 from '../../assets/images/wand-wz3.png';
+import wandWO from '../../assets/images/wand-wo.png';
+import triggerOne from '../../assets/images/trigger-one.png';
+import triggerTwo from '../../assets/images/trigger-two.png';
 
-const ConfigurableForm = ({ 
-  onNext, 
-  onPrev, 
-  initialData = {},
-  questions = [],
-  title = "Configuration",
-  showPrevButton = true,
-  nextButtonText = "Next"
-}) => {
-  // Initialize form data based on questions (excluding description entries)
-  const initializeFormData = () => {
-    const data = {};
-    questions.forEach(question => {
-      if (question.type !== 'description') {
-        data[question.id] = initialData[question.id] || (question.type === 'checkbox' ? [] : '');
-      }
-    });
-    return data;
-  };
-
-  const [formData, setFormData] = useState(initializeFormData());
-  const [hoveredSection, setHoveredSection] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
+const HapticWandConfiguration = ({ onNext, onPrev, initialData = {}, showPrevButton = true }) => {
+  const [formData, setFormData] = useState({
+    ergonomicHandle: initialData.ergonomicHandle || '',
+    fingerTrigger: initialData.fingerTrigger || '',
+    sensorSensitivity: initialData.sensorSensitivity || '',
+    sensorOptions: initialData.sensorOptions || ''
+  });
 
   const handleChange = (field, value) => {
     setFormData(prev => ({
@@ -34,17 +25,6 @@ const ConfigurableForm = ({
   const handleNext = () => {
     onNext(formData);
   };
-
-  // Check if screen is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const styles = {
     container: {
@@ -61,44 +41,103 @@ const ConfigurableForm = ({
       fontSize: '24px',
       fontWeight: '700',
       color: '#000000',
-      marginBottom: '8px',
+      marginBottom: '30px',
       fontFamily: "'Montserrat', sans-serif"
     },
-    description: {
-      fontSize: '14px',
-      color: '#666666',
-      marginBottom: '25px',
-      fontFamily: "'Montserrat', sans-serif",
-      fontStyle: 'italic',
-      lineHeight: '1.4'
-    },
     formSection: {
-      paddingBottom: '20px'
+      flex: 1,
+      paddingBottom: '80px'
     },
     formGroup: {
-      marginBottom: '25px',
-      padding: '15px',
-      marginLeft: '-15px',
-      marginRight: '-15px',
-      transition: 'background-color 0.3s',
-      backgroundColor: 'transparent'
-    },
-    formGroupHover: {
-      backgroundColor: 'rgba(251, 247, 247, 1)'
+      marginBottom: '35px'
     },
     label: {
       display: 'block',
       fontSize: '15px',
       color: '#4a5568',
-      marginBottom: '15px',
+      marginBottom: '20px',
       fontWeight: '500',
       fontFamily: "'Montserrat', sans-serif"
     },
-    // Regular radio options - vertical layout
-    radioGroup: {
+    wandOptions: {
+      display: 'flex',
+      gap: '15px',
+      flexWrap: 'wrap',
+      marginBottom: '30px'
+    },
+    wandOption: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '12px'
+      alignItems: 'center',
+      gap: '8px',
+      cursor: 'pointer',
+      padding: '10px',
+      border: '2px solid transparent',
+      borderRadius: '8px',
+      transition: 'all 0.3s',
+      backgroundColor: 'transparent'
+    },
+    wandOptionSelected: {
+      borderColor: '#008fe0',
+      backgroundColor: 'rgba(251, 247, 247, 1)'
+    },
+    wandRadio: {
+      width: '18px',
+      height: '18px',
+      cursor: 'pointer'
+    },
+    wandLabel: {
+      fontSize: '14px',
+      fontWeight: '600',
+      color: '#2d3748',
+      fontFamily: "'Montserrat', sans-serif"
+    },
+    wandImage: {
+      width: '80px',
+      height: '120px',
+      objectFit: 'contain'
+    },
+    triggerOptions: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px'
+    },
+    triggerOption: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '20px',
+      cursor: 'pointer',
+      padding: '15px',
+      border: '2px solid transparent',
+      borderRadius: '8px',
+      transition: 'all 0.3s',
+      backgroundColor: 'transparent'
+    },
+    triggerOptionSelected: {
+      borderColor: '#008fe0',
+      backgroundColor: 'rgba(251, 247, 247, 1)'
+    },
+    triggerRadio: {
+      width: '20px',
+      height: '20px',
+      cursor: 'pointer',
+      flexShrink: 0
+    },
+    triggerLabel: {
+      fontSize: '15px',
+      color: '#2d3748',
+      fontFamily: "'Montserrat', sans-serif",
+      flex: 1
+    },
+    triggerImage: {
+      height: '60px',
+      width: 'auto',
+      objectFit: 'contain'
+    },
+    radioGroup: {
+      display: 'flex',
+      gap: '30px',
+      flexWrap: 'wrap'
     },
     radioOption: {
       display: 'flex',
@@ -107,209 +146,174 @@ const ConfigurableForm = ({
       cursor: 'pointer'
     },
     radioInput: {
-      width: '16px',
-      height: '16px',
+      width: '18px',
+      height: '18px',
       cursor: 'pointer'
     },
     radioLabel: {
       fontSize: '15px',
       color: '#2d3748',
       fontFamily: "'Montserrat', sans-serif"
-    },
-    // Checkbox options
-    checkboxGroup: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px'
-    },
-    checkboxOption: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      cursor: 'pointer'
-    },
-    checkboxInput: {
-      width: '16px',
-      height: '16px',
-      cursor: 'pointer'
-    },
-    // Text input
-    textInput: {
-      width: '100%',
-      padding: '10px',
-      fontSize: '15px',
-      border: '2px solid #e2e8f0',
-      borderRadius: '6px',
-      fontFamily: "'Montserrat', sans-serif"
-    },
-    // Select/dropdown input
-    selectInput: {
-      width: '100%',
-      padding: '10px',
-      fontSize: '15px',
-      border: '2px solid #e2e8f0',
-      borderRadius: '6px',
-      fontFamily: "'Montserrat', sans-serif",
-      backgroundColor: 'white',
-      cursor: 'pointer'
-    },
-    textarea: {
-      width: '100%',
-      padding: '10px',
-      fontSize: '15px',
-      border: '2px solid #e2e8f0',
-      borderRadius: '6px',
-      fontFamily: "'Montserrat', sans-serif",
-      minHeight: '80px',
-      resize: 'vertical'
-    },
-  };
-
-  const getFormGroupStyle = (sectionId) => {
-    return {
-      ...styles.formGroup,
-      ...(hoveredSection === sectionId ? styles.formGroupHover : {})
-    };
-  };
-
-  const renderQuestion = (question) => {
-    switch (question.type) {
-      case 'radio':
-        return (
-          <div style={styles.radioGroup}>
-            {question.options.map(option => (
-              <div key={option.id} style={styles.radioOption}>
-                <input
-                  type="radio"
-                  id={`${question.id}-${option.id}`}
-                  name={question.id}
-                  value={option.id}
-                  checked={formData[question.id] === option.id}
-                  onChange={(e) => handleChange(question.id, e.target.value)}
-                  style={styles.radioInput}
-                />
-                <label htmlFor={`${question.id}-${option.id}`} style={styles.radioLabel}>
-                  {option.label}
-                </label>
-              </div>
-            ))}
-          </div>
-        );
-
-      case 'checkbox':
-        return (
-          <div style={styles.checkboxGroup}>
-            {question.options.map(option => (
-              <div key={option.id} style={styles.checkboxOption}>
-                <input
-                  type="checkbox"
-                  id={`${question.id}-${option.id}`}
-                  name={question.id}
-                  value={option.id}
-                  checked={(formData[question.id] || []).includes(option.id)}
-                  onChange={(e) => {
-                    const currentValues = formData[question.id] || [];
-                    const newValues = e.target.checked
-                      ? [...currentValues, option.id]
-                      : currentValues.filter(val => val !== option.id);
-                    handleChange(question.id, newValues);
-                  }}
-                  style={styles.checkboxInput}
-                />
-                <label htmlFor={`${question.id}-${option.id}`} style={styles.radioLabel}>
-                  {option.label}
-                </label>
-              </div>
-            ))}
-          </div>
-        );
-
-      case 'select':
-        return (
-          <select
-            value={formData[question.id] || ''}
-            onChange={(e) => handleChange(question.id, e.target.value)}
-            style={styles.selectInput}
-          >
-            <option value="">Select</option>
-            {question.options.map(option => (
-              <option key={option.id} value={option.id}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        );
-
-      case 'text':
-        return (
-          <input
-            type="text"
-            value={formData[question.id] || ''}
-            onChange={(e) => handleChange(question.id, e.target.value)}
-            placeholder={question.placeholder || ''}
-            style={styles.textInput}
-          />
-        );
-
-      case 'textarea':
-        return (
-          <textarea
-            value={formData[question.id] || ''}
-            onChange={(e) => handleChange(question.id, e.target.value)}
-            placeholder={question.placeholder || ''}
-            style={styles.textarea}
-          />
-        );
-
-      case 'number':
-        return (
-          <input
-            type="number"
-            value={formData[question.id] || ''}
-            onChange={(e) => handleChange(question.id, e.target.value)}
-            placeholder={question.placeholder || ''}
-            min={question.min}
-            max={question.max}
-            step={question.step}
-            style={styles.textInput}
-          />
-        );
-
-      case 'description':
-        return (
-          <div style={styles.description}>
-            {question.text}
-          </div>
-        );
-
-      default:
-        return <div>Unsupported question type: {question.type}</div>;
     }
   };
 
-  // Find description from questions array
-  const descriptionItem = questions.find(q => q.type === 'description');
-  const regularQuestions = questions.filter(q => q.type !== 'description');
+  const wandOptions = [
+    { id: 'W21', image: wandW21, label: 'W21' },
+    { id: 'WXE', image: wandWXE, label: 'WXE' },
+    { id: 'WC3', image: wandWC3, label: 'WC3' },
+    { id: 'WZ3', image: wandWZ3, label: 'WZ3' },
+    { id: 'WO', image: wandWO, label: 'WO' }
+  ];
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>{title}</h1>
-      {descriptionItem && (
-        <p style={styles.description}>{descriptionItem.text}</p>
-      )}
+      <h1 style={styles.title}>Haptic Wand Configuration</h1>
       
       <div style={styles.formSection}>
-        {regularQuestions.map((question, index) => (
-          <div 
-            key={question.id}
-            style={getFormGroupStyle(question.id)}
-            onMouseEnter={() => setHoveredSection(question.id)}
-            onMouseLeave={() => setHoveredSection(null)}
-          >
-            <label style={styles.label}>{question.label}</label>
-            {renderQuestion(question)}
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Select your ergonomic handle:</label>
+          <div style={styles.wandOptions}>
+            {wandOptions.map(wand => (
+              <div 
+                key={wand.id}
+                style={{
+                  ...styles.wandOption,
+                  ...(formData.ergonomicHandle === wand.id ? styles.wandOptionSelected : {})
+                }}
+                onClick={() => handleChange('ergonomicHandle', wand.id)}
+              >
+                <input
+                  type="radio"
+                  id={`wand-${wand.id}`}
+                  name="ergonomicHandle"
+                  value={wand.id}
+                  checked={formData.ergonomicHandle === wand.id}
+                  onChange={(e) => handleChange('ergonomicHandle', e.target.value)}
+                  style={styles.wandRadio}
+                />
+                <label htmlFor={`wand-${wand.id}`} style={styles.wandLabel}>{wand.label}</label>
+                <img src={wand.image} alt={`${wand.label} wand`} style={styles.wandImage} />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Select one or two finger trigger:</label>
+          <div style={styles.triggerOptions}>
+            <div 
+              style={{
+                ...styles.triggerOption,
+                ...(formData.fingerTrigger === 'One finger trigger' ? styles.triggerOptionSelected : {})
+              }}
+              onClick={() => handleChange('fingerTrigger', 'One finger trigger')}
+            >
+              <input
+                type="radio"
+                id="trigger-one"
+                name="fingerTrigger"
+                value="One finger trigger"
+                checked={formData.fingerTrigger === 'One finger trigger'}
+                onChange={(e) => handleChange('fingerTrigger', e.target.value)}
+                style={styles.triggerRadio}
+              />
+              <label htmlFor="trigger-one" style={styles.triggerLabel}>One finger trigger</label>
+              <img src={triggerOne} alt="One finger trigger" style={styles.triggerImage} />
+            </div>
+
+            <div 
+              style={{
+                ...styles.triggerOption,
+                ...(formData.fingerTrigger === 'Two finger trigger' ? styles.triggerOptionSelected : {})
+              }}
+              onClick={() => handleChange('fingerTrigger', 'Two finger trigger')}
+            >
+              <input
+                type="radio"
+                id="trigger-two"
+                name="fingerTrigger"
+                value="Two finger trigger"
+                checked={formData.fingerTrigger === 'Two finger trigger'}
+                onChange={(e) => handleChange('fingerTrigger', e.target.value)}
+                style={styles.triggerRadio}
+              />
+              <label htmlFor="trigger-two" style={styles.triggerLabel}>Two finger trigger</label>
+              <img src={triggerTwo} alt="Two finger trigger" style={styles.triggerImage} />
+            </div>
+          </div>
+        </div>
+
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Haptic sensor sensitivity:</label>
+          <div style={styles.radioGroup}>
+            <div style={styles.radioOption}>
+              <input
+                type="radio"
+                id="high-sensitivity"
+                name="sensorSensitivity"
+                value="High sensitivity"
+                checked={formData.sensorSensitivity === 'High sensitivity'}
+                onChange={(e) => handleChange('sensorSensitivity', e.target.value)}
+                style={styles.radioInput}
+              />
+              <label htmlFor="high-sensitivity" style={styles.radioLabel}>High sensitivity</label>
+            </div>
+            <div style={styles.radioOption}>
+              <input
+                type="radio"
+                id="low-sensitivity"
+                name="sensorSensitivity"
+                value="Low sensitivity"
+                checked={formData.sensorSensitivity === 'Low sensitivity'}
+                onChange={(e) => handleChange('sensorSensitivity', e.target.value)}
+                style={styles.radioInput}
+              />
+              <label htmlFor="low-sensitivity" style={styles.radioLabel}>Low sensitivity</label>
+            </div>
+            <div style={styles.radioOption}>
+              <input
+                type="radio"
+                id="custom-sensitivity"
+                name="sensorSensitivity"
+                value="Custom"
+                checked={formData.sensorSensitivity === 'Custom'}
+                onChange={(e) => handleChange('sensorSensitivity', e.target.value)}
+                style={styles.radioInput}
+              />
+              <label htmlFor="custom-sensitivity" style={styles.radioLabel}>Custom</label>
+            </div>
+          </div>
+        </div>
+
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Haptic sensor options:</label>
+          <div style={styles.radioGroup}>
+            <div style={styles.radioOption}>
+              <input
+                type="radio"
+                id="vibrate-sound"
+                name="sensorOptions"
+                value="Vibrate + Sound"
+                checked={formData.sensorOptions === 'Vibrate + Sound'}
+                onChange={(e) => handleChange('sensorOptions', e.target.value)}
+                style={styles.radioInput}
+              />
+              <label htmlFor="vibrate-sound" style={styles.radioLabel}>Vibrate + Sound</label>
+            </div>
+            <div style={styles.radioOption}>
+              <input
+                type="radio"
+                id="vibrate-only"
+                name="sensorOptions"
+                value="Vibrate only"
+                checked={formData.sensorOptions === 'Vibrate only'}
+                onChange={(e) => handleChange('sensorOptions', e.target.value)}
+                style={styles.radioInput}
+              />
+              <label htmlFor="vibrate-only" style={styles.radioLabel}>Vibrate only</label>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="questioner-nav-buttons">
@@ -332,4 +336,4 @@ const ConfigurableForm = ({
   );
 };
 
-export default ConfigurableForm;
+export default HapticWandConfiguration;
