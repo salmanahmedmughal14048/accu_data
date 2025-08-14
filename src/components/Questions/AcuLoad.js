@@ -415,7 +415,7 @@ function AcuLoad({
         return (
           <div className="questioner-image-container">
             <img 
-              src="/assets/images/hardware-config.png"
+              src="/src/assets/images/hardware-config.png"
               alt="Hardware Configuration" 
               className="questioner-config-image" 
             />

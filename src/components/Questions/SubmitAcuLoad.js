@@ -23,7 +23,7 @@ const Submit = ({
       flex: 1,
       backgroundColor: '#eaeaea',
       padding: '40px',
-      overflowY: 'auto',
+      overflow: 'visible',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',

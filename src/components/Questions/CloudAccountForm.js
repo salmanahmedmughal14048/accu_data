@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CloudAccountForm.css'; // Move styles to separate CSS file
 
-const CloudAccountForm = ({ onNext, onPrev, initialData = {} }) => {
+const CloudAccountForm = ({ onNext, onPrev, initialData = {}, showPrevButton = false }) => {
   // State management
   const [formState, setFormState] = useState({
     selectedAccount: initialData.account || '',
@@ -73,10 +73,10 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {} }) => {
   const isAccountSelected = (accountId) => formState.selectedAccount === accountId;
 
   return (
-    <div className="cloud-account-container">
-      <h1 className="cloud-account-title">ACU Cloud Account Configuration</h1>
+    <div className="questioner-step-container">
+      <h1 className="questioner-form-title">ACU Cloud Account Configuration</h1>
       
-      <div className="cloud-account-form">
+      <div className="questioner-form-section">
         {/* Cloud Account Selection Section */}
         <FormSection
           id="cloud-account"
@@ -101,15 +101,10 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {} }) => {
           </div>
         </FormSection>
 
-        {/* Divider */}
-        <div className="form-divider">
-          <p>Secure dedicated static IP Address:</p>
-        </div>
-
         {/* IP Address Section */}
         <FormSection
           id="ip-address"
-          label="Enter alternate static IP Address:"
+          label="IP Address Configuration"
           isHovered={formState.hoveredSection === 'ip-address'}
           onHover={handleSectionHover}
         >
@@ -119,7 +114,7 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {} }) => {
               value={formState.ipAddress}
               onChange={(e) => handleIpAddressChange(e.target.value)}
               placeholder="Enter IP address"
-              className="ip-input"
+              className="questioner-text-input"
             />
             <ConnectButton
               isConnected={isConnected('ipAddress')}
@@ -130,15 +125,24 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {} }) => {
       </div>
 
       {/* Navigation */}
-      <div className={`button-wrapper ${formState.isMobile ? 'mobile' : ''}`}>
-        <img 
-          src="/assets/images/next-button.svg"
-          alt="Next"
-          className="next-button"
-          onClick={handleSubmit}
-          onMouseEnter={(e) => e.target.src = "/assets/images/next-button-hover.svg"}
-          onMouseLeave={(e) => e.target.src = "/assets/images/next-button.svg"}
-        />
+      <div className="questioner-nav-buttons">
+        {showPrevButton && (
+          <button 
+            type="button" 
+            onClick={onPrev} 
+            className="questioner-nav-button prev"
+          >
+            Prev
+          </button>
+        )}
+        <button 
+          type="button" 
+          onClick={handleSubmit} 
+          className="questioner-nav-button next"
+          disabled={!formState.selectedAccount || (formState.selectedAccount === 'other' && !formState.otherValue)}
+          style={!showPrevButton ? { marginLeft: 'auto' } : {}}
+        >
+        </button>
       </div>
     </div>
   );
@@ -147,11 +151,11 @@ const CloudAccountForm = ({ onNext, onPrev, initialData = {} }) => {
 // Reusable Components
 const FormSection = ({ id, label, children, isHovered, onHover }) => (
   <div 
-    className={`form-section ${isHovered ? 'hovered' : ''}`}
+    className={`questioner-form-group ${isHovered ? 'hovered' : ''}`}
     onMouseEnter={() => onHover(id, true)}
     onMouseLeave={() => onHover(id, false)}
   >
-    <label className="section-label">{label}</label>
+    <label className="questioner-form-label">{label}</label>
     {children}
   </div>
 );
@@ -166,7 +170,7 @@ const AccountOption = ({
   onConnect, 
   onOtherChange 
 }) => (
-  <div className="account-option">
+  <div className="questioner-radio-option">
     <input
       type="radio"
       name="account"
@@ -174,9 +178,9 @@ const AccountOption = ({
       value={account.id}
       checked={isSelected}
       onChange={(e) => onSelect(e.target.value)}
-      className="account-radio"
+      className="questioner-radio-input"
     />
-    <label htmlFor={account.id} className="account-label">
+    <label htmlFor={account.id} className="questioner-radio-label">
       {account.label}
     </label>
     
@@ -187,7 +191,7 @@ const AccountOption = ({
         onChange={(e) => onOtherChange(e.target.value)}
         onClick={(e) => e.stopPropagation()}
         placeholder="Enter value"
-        className="other-input"
+        className="questioner-text-input"
       />
     )}
     

@@ -1,9 +1,4 @@
-// ConfigurableForm.js - Complete working generic form component
 import React, { useState, useEffect } from 'react';
-import prevButton from '../../assets/questions/images/prev-button.svg';
-import prevButtonHover from '../../assets/questions/images/prev-button-hover.svg';
-import nextButton from '../../assets/questions/next-button.svg';
-import nextButtonHover from '../../assets/questions/next-button-hover.svg';
 
 const ConfigurableForm = ({ 
   onNext, 
@@ -56,7 +51,7 @@ const ConfigurableForm = ({
       flex: 1,
       backgroundColor: '#eaeaea',
       padding: '30px',
-      overflowY: 'auto',
+      overflow: 'visible',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
@@ -168,42 +163,6 @@ const ConfigurableForm = ({
       minHeight: '80px',
       resize: 'vertical'
     },
-    // Button styles
-    buttonWrapper: {
-      display: 'flex',
-      gap: '15px',
-      justifyContent: showPrevButton ? 'space-between' : 'flex-end',
-      paddingTop: '15px',
-      flexDirection: 'row'
-    },
-    buttonWrapperMobile: {
-      display: 'flex',
-      gap: '12px',
-      justifyContent: 'center',
-      paddingTop: '15px',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    buttonImg: {
-      cursor: 'pointer',
-      display: 'block'
-    },
-    prevButtonContainer: {
-      position: 'relative',
-      cursor: 'pointer',
-      display: 'inline-block'
-    },
-    prevText: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      fontSize: '16px',
-      color: '#333333',
-      fontFamily: "'Montserrat', sans-serif",
-      fontWeight: '600',
-      pointerEvents: 'none'
-    }
   };
 
   const getFormGroupStyle = (sectionId) => {
@@ -353,36 +312,21 @@ const ConfigurableForm = ({
         ))}
       </div>
 
-      <div style={isMobile ? styles.buttonWrapperMobile : styles.buttonWrapper}>
+      <div className="questioner-nav-buttons">
         {showPrevButton && (
-          <div 
-            style={styles.prevButtonContainer} 
+          <button
             onClick={onPrev}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector('img');
-              const span = e.currentTarget.querySelector('span');
-              if (img) img.src = prevButtonHover;
-              if (span) span.style.color = '#ffffff';
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector('img');
-              const span = e.currentTarget.querySelector('span');
-              if (img) img.src = prevButton;
-              if (span) span.style.color = '#333333';
-            }}
+            className="questioner-nav-button prev"
           >
-            <img src={prevButton} alt="Previous" style={styles.buttonImg} />
-            <span style={styles.prevText}>PREV</span>
-          </div>
+            Prev
+          </button>
         )}
-        <img 
-          src={nextButton}
-          alt={nextButtonText}
-          style={styles.buttonImg}
+        <button
           onClick={handleNext}
-          onMouseEnter={(e) => e.target.src = nextButtonHover}
-          onMouseLeave={(e) => e.target.src = nextButton}
-        />
+          className="questioner-nav-button next"
+          style={!showPrevButton ? { marginLeft: 'auto' } : {}}
+        >
+        </button>
       </div>
     </div>
   );

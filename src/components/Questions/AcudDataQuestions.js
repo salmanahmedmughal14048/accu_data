@@ -9,6 +9,7 @@ import HapticWandConfiguration from './HapticWandConfiguration';
 import BarcodeScannerSetup from './BarcodeScannerSetup';
 import Submit from './Submit';
 import welcomeImage from '../../assets/questions/welcome.jpg';
+import hardwareConfigImage from '../../assets/images/hardware-config.png';
 
 function AcudDataQuestions({ 
   onComplete, 
@@ -102,6 +103,7 @@ function AcudDataQuestions({
             onNext={handleNextStep} 
             onPrev={handlePrevStep}
             initialData={formData.step1 || {}}
+            showPrevButton={false}
           />
         );
       case 2:
@@ -157,9 +159,9 @@ function AcudDataQuestions({
         return (
           <div className="questioner-image-container">
             <img 
-              src="/assets/images/hardware-config.png"
+              src={hardwareConfigImage}
               alt="Hardware Configuration" 
-              className="questioner-config-image" 
+              className="questioner-config-image"
             />
           </div>
         );

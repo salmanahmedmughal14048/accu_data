@@ -35,8 +35,7 @@
   padding: 0;
   position: relative;
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: visible; /* Allow content to flow naturally */
 }
 
 .config-vertical-line {

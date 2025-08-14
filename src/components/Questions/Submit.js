@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
-import logo from '../../assets/questions/submit/logo.png'
+import React from 'react';
+import logo from '../../assets/questions/submit/logo.png';
 import emailIcon from '../../assets/questions/submit/email-icon.svg';
-import submitButton from '../../assets/questions/submit/submit-button.svg';
-import submitButtonHover from '../../assets/questions/submit/submit-button-hover.svg';
 
 const Submit = ({ onPrev, onComplete, formData = {} }) => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isUploading, setIsUploading] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
 
   const handleSubmit = () => {
-    setIsSubmitting(true);
+    setIsUploading(true);
     // Simulate submission process
     setTimeout(() => {
-      setIsSubmitted(true);
-      setIsSubmitting(false);
+      setIsUploading(false);
       if (onComplete) {
         onComplete(formData);
       }
-    }, 2000);
+    }, 3000);
   };
 
   const styles = {
@@ -26,7 +22,7 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
       flex: 1,
       backgroundColor: '#eaeaea',
       padding: '40px',
-      overflowY: 'auto',
+      overflow: 'visible',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
@@ -109,130 +105,143 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
       width: '20px',
       height: '20px'
     },
-    submitButtonContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: '30px'
-    },
     submitButton: {
-      background: 'none',
+      width: '200px',
+      padding: '15px',
+      backgroundColor: '#1e88e5',
+      color: 'white',
       border: 'none',
-      cursor: 'pointer',
-      padding: 0,
-      transition: 'transform 0.2s ease',
-      position: 'relative'
-    },
-    submitButtonImg: {
-      height: '50px',
-      width: 'auto'
-    },
-    submitButtonText: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      color: '#ffffff',
-      fontSize: '16px',
-      fontWeight: '700',
-      fontFamily: "'Montserrat', sans-serif",
-      pointerEvents: 'none',
-      textTransform: 'uppercase'
-    },
-    submitButtonDisabled: {
-      opacity: 0.6,
-      cursor: 'default'
-    },
-    successMessage: {
-      fontSize: '16px',
-      color: '#01a101',
-      fontWeight: '600',
-      fontFamily: "'Montserrat', sans-serif",
-      marginTop: '20px',
-      padding: '15px 25px',
-      backgroundColor: '#e6f7e6',
       borderRadius: '8px',
-      border: '2px solid #01a101',
-      textAlign: 'center'
+      fontSize: '16px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s',
+      fontFamily: "'Montserrat', sans-serif",
+      alignSelf: 'center',
+      marginTop: '20px'
+    },
+    submitButtonHover: {
+      backgroundColor: '#1565c0'
+    },
+    uploadingOverlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000
+    },
+    uploadingContainer: {
+      backgroundColor: 'white',
+      padding: '60px 40px',
+      borderRadius: '12px',
+      textAlign: 'center',
+      minWidth: '300px',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
+    },
+    uploadingTitle: {
+      fontSize: '18px',
+      fontWeight: '400',
+      color: '#666',
+      fontFamily: "'Montserrat', sans-serif",
+      lineHeight: '1.5'
+    },
+    spinner: {
+      display: 'inline-block',
+      width: '40px',
+      height: '40px',
+      border: '4px solid #e2e8f0',
+      borderRadius: '50%',
+      borderTopColor: '#1e88e5',
+      animation: 'spin 1s linear infinite',
+      marginBottom: '20px'
     }
   };
 
-  const getSubmitButtonImage = () => {
-    if (isSubmitted || isSubmitting) {
-      return submitButton;
-    }
-    return isButtonHovered 
-      ? submitButtonHover
-      : submitButton;
-  };
-
-  const getSubmitButtonText = () => {
-    if (isSubmitted) return 'SUBMITTED';
-    if (isSubmitting) return 'SUBMITTING...';
-    return 'SUBMIT';
-  };
+  // Add keyframe animation style to document head
+  React.useEffect(() => {
+    const styleSheet = document.createElement('style');
+    styleSheet.type = 'text/css';
+    styleSheet.innerText = `
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(styleSheet);
+    
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Submit saved configuration</h1>
-      
-      <div style={styles.content}>
-        <div style={styles.greenSection}>
-          <img src={logo} alt="ACU DATA" style={styles.logo} />
-        </div>
+    <>
+      <div style={styles.container}>
+        <h1 style={styles.title}>Submit saved configuration</h1>
         
-        <div style={styles.messageBox}>
-          <p style={styles.message}>
-            These system configuration settings will be saved and uploaded to 
-            ACU Data upon submission. You retrieve these settings and edit 
-            them by selecting the: <span style={styles.setupTab}>"Setup Tab"</span>
-          </p>
-        </div>
-
-        <div style={styles.contactSection}>
-          <p style={styles.contactText}>
-            If you have any comments, questions or need any assistance, feel 
-            free to reach out to us at:
-          </p>
-          <a href="mailto:ACU_Data_PatientData@acuitysurgical.com" style={styles.emailLink}>
-            <img src={emailIcon} alt="Email" style={styles.emailIcon} />
-            ACU_Data_PatientData@acuitysurgical.com
-          </a>
-          <div style={{ marginTop: '10px' }}>
-            <span style={{ ...styles.contactText, fontSize: '18px' }}>
-              any time you need.
-            </span>
+        <div style={styles.content}>
+          <div style={styles.greenSection}>
+            <img src={logo} alt="ACU DATA" style={styles.logo} />
           </div>
-        </div>
-
-        {isSubmitted && (
-          <div style={styles.successMessage}>
-            ✓ Configuration has been successfully submitted!
+          
+          <div style={styles.messageBox}>
+            <p style={styles.message}>
+              These system configuration settings will be saved and uploaded to 
+              ACU Data upon submission. You retrieve these settings and edit 
+              them by selecting the: <span style={styles.setupTab}>"Setup Tab"</span>
+            </p>
           </div>
-        )}
 
-        <div style={styles.submitButtonContainer}>
+          <div style={styles.contactSection}>
+            <p style={styles.contactText}>
+              If you have any comments, questions or need any assistance, feel 
+              free to reach out to us at:
+            </p>
+            <a href="mailto:ACU_Data_PatientData@acuitysurgical.com" style={styles.emailLink}>
+              <img src={emailIcon} alt="Email" style={styles.emailIcon} />
+              ACU_Data_PatientData@acuitysurgical.com
+            </a>
+            <div style={{ marginTop: '10px' }}>
+              <span style={{ ...styles.contactText, fontSize: '18px' }}>
+                any time you need.
+              </span>
+            </div>
+          </div>
+
           <button 
             style={{
               ...styles.submitButton,
-              ...(isSubmitted || isSubmitting ? styles.submitButtonDisabled : {})
+              ...(isHovered ? styles.submitButtonHover : {}),
+              ...(isUploading ? { opacity: 0.7, cursor: 'not-allowed' } : {})
             }}
             onClick={handleSubmit}
-            disabled={isSubmitted || isSubmitting}
-            onMouseEnter={() => setIsButtonHovered(true)}
-            onMouseLeave={() => setIsButtonHovered(false)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            disabled={isUploading}
           >
-            <img 
-              src={getSubmitButtonImage()} 
-              alt={getSubmitButtonText()}
-              style={styles.submitButtonImg}
-            />
-            <span style={styles.submitButtonText}>
-              {getSubmitButtonText()}
-            </span>
+            {isUploading ? 'UPLOADING...' : 'SUBMIT'}
           </button>
         </div>
       </div>
-    </div>
+
+      {isUploading && (
+        <div style={styles.uploadingOverlay}>
+          <div style={styles.uploadingContainer}>
+            <div style={styles.spinner}></div>
+            <p style={styles.uploadingTitle}>
+              Uploading<br />
+              to<br />
+              ACU Data
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

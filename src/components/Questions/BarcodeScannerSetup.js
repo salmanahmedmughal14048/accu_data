@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import prevButton from '../../assets/questions/images/prev-button.svg';
-import prevButtonHover from '../../assets/questions/images/prev-button-hover.svg';
-import nextButton from '../../assets/questions/next-button.svg';
-import nextButtonHover from '../../assets/questions/next-button-hover.svg';
 
 const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
   const [isInitialized, setIsInitialized] = useState(initialData.isInitialized || false);
@@ -38,7 +34,7 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
       flex: 1,
       backgroundColor: '#eaeaea',
       padding: '40px',
-      overflowY: 'auto',
+      overflow: 'visible',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
@@ -101,43 +97,6 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
       borderRadius: '6px',
       border: '1px solid #01a101'
     },
-    buttonWrapper: {
-      display: 'flex',
-      gap: '20px',
-      justifyContent: 'space-between',
-      marginTop: 'auto',
-      paddingTop: '20px',
-      flexDirection: 'row'
-    },
-    buttonWrapperMobile: {
-      display: 'flex',
-      gap: '15px',
-      justifyContent: 'center',
-      marginTop: 'auto',
-      paddingTop: '20px',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    buttonImg: {
-      cursor: 'pointer',
-      display: 'block'
-    },
-    prevButtonContainer: {
-      position: 'relative',
-      cursor: 'pointer',
-      display: 'inline-block'
-    },
-    prevText: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      fontSize: '16px',
-      color: '#333333',
-      fontFamily: "'Montserrat', sans-serif",
-      fontWeight: '600',
-      pointerEvents: 'none'
-    }
   };
 
   const getButtonStyle = () => {
@@ -191,30 +150,18 @@ const BarcodeScannerSetup = ({ onNext, onPrev, initialData = {} }) => {
         )}
       </div>
 
-      <div style={isMobile ? styles.buttonWrapperMobile : styles.buttonWrapper}>
-        <div 
-          style={styles.prevButtonContainer} 
+      <div className="questioner-nav-buttons">
+        <button
           onClick={onPrev}
-          onMouseEnter={(e) => {
-            e.currentTarget.querySelector('img').src = prevButtonHover;
-            e.currentTarget.querySelector('span').style.color = '#ffffff';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.querySelector('img').src = prevButton;
-            e.currentTarget.querySelector('span').style.color = '#333333';
-          }}
+          className="questioner-nav-button prev"
         >
-          <img src={prevButton} alt="Previous" style={styles.buttonImg} />
-          <span style={styles.prevText}>PREV</span>
-        </div>
-        <img 
-          src={nextButton}
-          alt="Next"
-          style={styles.buttonImg}
+          Prev
+        </button>
+        <button
           onClick={handleNext}
-          onMouseEnter={(e) => e.target.src = nextButtonHover}
-          onMouseLeave={(e) => e.target.src = nextButton}
-        />
+          className="questioner-nav-button next"
+        >
+        </button>
       </div>
     </div>
   );

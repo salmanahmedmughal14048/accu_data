@@ -5,7 +5,7 @@
   flex: 1;
   background-color: #eaeaea;
   padding: 40px;
-  overflow-y: auto;
+  overflow: visible; /* Allow content to flow naturally */
   position: relative;
   display: flex;
   flex-direction: column;
