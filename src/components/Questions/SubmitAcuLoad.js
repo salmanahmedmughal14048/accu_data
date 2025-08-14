@@ -19,7 +19,64 @@ const Submit = ({
   };
 
   const downloadJSON = (data, filename) => {
-    const jsonStr = JSON.stringify(data, null, 2);
+    const expectedMedicalFields = [
+      'treatmentLevel', 'preferredApproach', 'excludedApproach', 'patientSmoker',
+      'smokingFrequency', 'smokingYears', 'hasDiabetes', 'diabetesType', 'hasOsteoporosis',
+      'hasOsteopenia', 'hasRheumatoidArthritis', 'priorSurgery', 'surgerySite',
+      'previousSurgerySite', 'bmiCategory', 'restrictActivity', 'requireTreatments',
+      'adjacentLevelRisk', 'patientSpecificDevice', 'preferredFootprint', 'maximumAperture',
+      'fixationHoles', 'riskCompliance'
+    ];
+
+    let cleanMedicalData = {};
+    const medicalData = data;
+    if (medicalData) {
+      let deepestStep = null;
+      let maxFields = 0;
+      
+      const findDeepestStep = (stepData) => {
+        if (typeof stepData === 'object' && stepData !== null) {
+          Object.keys(stepData).forEach(key => {
+            if (key.startsWith('step') && typeof stepData[key] === 'object') {
+              const fieldCount = Object.keys(stepData[key]).filter(k => !k.startsWith('step') && k !== 'completedAt').length;
+              if (fieldCount >= maxFields) {
+                maxFields = fieldCount;
+                deepestStep = stepData[key];
+              }
+              findDeepestStep(stepData[key]);
+            }
+          });
+        }
+      };
+      
+      findDeepestStep(medicalData);
+      
+      if (deepestStep && Object.keys(deepestStep).length > 0) {
+        cleanMedicalData = { ...deepestStep };
+      } else if (medicalData.step8) {
+        cleanMedicalData = { ...medicalData.step8 };
+      } else {
+        Object.keys(medicalData).forEach(key => {
+            if (!key.startsWith('step')) {
+                cleanMedicalData[key] = medicalData[key];
+            }
+        })
+      }
+      
+      Object.keys(cleanMedicalData).forEach(key => {
+        if (key.startsWith('step') || key === 'completedAt') {
+          delete cleanMedicalData[key];
+        }
+      });
+
+      expectedMedicalFields.forEach(field => {
+        if (!(field in cleanMedicalData)) {
+          cleanMedicalData[field] = null;
+        }
+      });
+    }
+
+    const jsonStr = JSON.stringify(cleanMedicalData, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');

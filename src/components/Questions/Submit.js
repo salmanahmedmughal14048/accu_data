@@ -18,7 +18,31 @@ const Submit = ({ onPrev, onComplete, formData = {} }) => {
   };
 
   const downloadJSON = (data, filename) => {
-    const jsonStr = JSON.stringify(data, null, 2);
+    const flatHardwareData = {};
+    const hardwareData = data;
+    if (hardwareData) {
+      for (let i = 1; i <= 5; i++) { // Only steps 1-5 as per normalization logic
+        const stepKey = `step${i}`;
+        if (hardwareData[stepKey] && typeof hardwareData[stepKey] === 'object') {
+          const stepData = hardwareData[stepKey];
+          Object.keys(stepData).forEach(key => {
+            if (!key.startsWith('step') && key !== 'completedAt') {
+              flatHardwareData[key] = stepData[key];
+            }
+          });
+        }
+      }
+    }
+
+    if (Object.keys(flatHardwareData).length === 0 && hardwareData) {
+        Object.keys(hardwareData).forEach(key => {
+            if (!key.startsWith('step') && key !== 'completedAt') {
+                flatHardwareData[key] = hardwareData[key];
+            }
+        })
+    }
+
+    const jsonStr = JSON.stringify(flatHardwareData, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
